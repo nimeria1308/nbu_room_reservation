@@ -1,0 +1,50 @@
+html {
+    min-height: 100%;
+    color: white;
+    background-color: #333;
+    background: linear-gradient(#777 0%, #111 100%);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+header h1 {
+    border-bottom: black 1px solid;
+    text-align: center;
+}
+
+a,
+a:visited {
+    color: lightgray;
+}
+
+a:hover {
+    color: white;
+    font-size: 1.05em;
+}
+
+body {
+    margin: 0;
+}
+
+header,
+footer {
+    padding: 20px;
+    color: white;
+}
+
+footer {
+    border-top: black 1px solid;
+}
+
+footer>div {
+    margin: 0.5em;
+    text-align: center;
+}
+
+footer a {
+    padding: 0 0.5em;
+}
+
+.shadowed {
+    -webkit-filter: drop-shadow(5px 5px 5px #222);
+    filter: drop-shadow(5px 5px 5px #222);
+}

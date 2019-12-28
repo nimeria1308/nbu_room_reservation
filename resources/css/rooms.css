@@ -1,0 +1,40 @@
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    padding: 2em;
+    width: 60%;
+}
+
+
+/* MSIE11 fallback */
+
+.grid-container {
+    display: -ms-grid;
+    -ms-grid-columns: auto auto auto auto;
+}
+
+.grid-element>a {
+    display: block;
+    padding: 3em;
+    font-size: 120%;
+    text-align: center;
+    transition: 0.3s;
+    border-radius: 1em;
+}
+
+.grid-element>a:hover {
+    background-color: rgba(0.0, 0.0, 0.0, 0.2);
+    transform: scale(1.05);
+}
+
+.grid-container div.icon>img {
+    height: 100%;
+}
+
+.grid-container div.icon {
+    width: 12em;
+    height: 12em;
+    overflow: hidden;
+    margin: 0 auto;
+    margin-bottom: 1em;
+}
