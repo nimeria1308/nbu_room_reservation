@@ -1,0 +1,19 @@
+RewriteEngine on
+
+# Redirect index to room selection
+RewriteRule ^$ /rooms [R]
+
+# Rooms selection, e.g.
+#   /rooms
+#   /rooms/
+RewriteRule ^rooms/?$ rooms.php
+
+# Calendar for a specific room:
+#   /rooms/0
+#   /rooms/0/
+RewriteRule ^rooms/(\d+)/?$ room.php?room_id=$1
+
+# Queries for a specific room:
+#   /rooms/0/queries
+#   /rooms/0/queries/
+RewriteRule ^rooms/(\d+)/queries/?$ queries.php?room_id=$1
