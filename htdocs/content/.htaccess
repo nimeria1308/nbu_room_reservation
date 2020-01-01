@@ -1,2 +1,5 @@
 # Disable directory listing
 Options -Indexes
+
+# Set PHP include path
+php_value include_path "${PROJECT_DIR}/htdocs/content"

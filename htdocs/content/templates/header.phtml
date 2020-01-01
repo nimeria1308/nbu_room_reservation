@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title><?= $this->title ?></title>
+    <link rel="stylesheet" type="text/css" href="/resources/css/common.css" />
+    <meta http-equiv="x-ua-compatible" content="IE=edge" />
+    <?php
+    foreach (($this->head_elements ? $this->head_elements : array()) as $e) {
+        echo $e;
+    }
+    ?>
+</head>
+
+<body>
+    <header>
+        <div>
+            <h1><?= $this->title ?></h1>
+            <h4><a href="">Списък на залите</a> | <a href="">Семинарна зала</a> | <a href="">Заявки</a></h4>
+        </div>
+    </header>
+    <div id="content">
