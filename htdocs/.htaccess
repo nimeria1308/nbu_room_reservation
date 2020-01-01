@@ -3,17 +3,19 @@ RewriteEngine on
 # Redirect index to room selection
 RewriteRule ^$ /rooms [R]
 
-# Rooms selection, e.g.
+# General one-word rule, e.g.
 #   /rooms
 #   /rooms/
-RewriteRule ^rooms/?$ rooms.php
+#   /about
+#   /about/
+RewriteRule ^([a-zA-Z0-9_]+)/?$ /content/pages/$1.php
 
 # Calendar for a specific room:
 #   /rooms/0
 #   /rooms/0/
-RewriteRule ^rooms/(\d+)/?$ room.php?room_id=$1
+RewriteRule ^rooms/(\d+)/?$ /content/pages/room.php?room_id=$1 [QSA]
 
 # Queries for a specific room:
 #   /rooms/0/queries
 #   /rooms/0/queries/
-RewriteRule ^rooms/(\d+)/queries/?$ queries.php?room_id=$1
+RewriteRule ^rooms/(\d+)/queries/?$ /content/pages/queries.php?room_id=$1 [QSA]
