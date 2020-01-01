@@ -1,14 +1,13 @@
 <?php
 require_once('libraries/myview.php');
 
-$t = new MyView();
+$t = new MyView('header.phtml');
 $t->title = "За нас";
-$t->render('header.phtml');
-?>
+$t->render();
 
-ABOUT US CONTENTS
+$t = new MyView('about.phtml');
+$t->render();
 
-<?php
-$t = new MyView();
-$t->render('footer.phtml');
+$t = new MyView('footer.phtml');
+$t->render();
 ?>

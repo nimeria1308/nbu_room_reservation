@@ -1,16 +1,18 @@
 <?php
 class MyView {
-    protected $template_dir = 'templates/';
+    const TEMPLATE_DIR = 'templates/';
     protected $vars = array();
+    protected $template_file;
 
-    public function __construct($template_dir = null) {
-        if ($template_dir !== null) {
-            $this->template_dir = $template_dir;
+    public function __construct($template_file, $vars = null) {
+        $this->template_file = $template_file;
+        if (is_array($vars)) {
+            $this->vars = $vars;
         }
     }
 
-    public function render($template_file) {
-        require $this->template_dir.$template_file;
+    public function render() {
+        require self::TEMPLATE_DIR.$this->template_file;
     }
 
     public function __set($name, $value) {

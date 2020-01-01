@@ -1,72 +1,44 @@
-<!DOCTYPE html>
-<html>
+<?php
+require_once('libraries/myview.php');
+require_once('libraries/isadmin.php');
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="x-ua-compatible" content="IE=edge" />
-    <title>Title of the document</title>
-    <link rel="stylesheet" type="text/css" href="/resources/css/common.css" />
-    <link rel="stylesheet" type="text/css" href="/resources/css/rooms.css" />
-    <meta http-equiv="x-ua-compatible" content="IE=edge" />
-    <script type="text/javascript" src="/resources/javascipt/css_grid_annotator.js"></script>
-</head>
+$t = new MyView('header.phtml');
+$t->title = "Резервиране на зали към НБУ Библиотека";
 
-<body>
-    <header>
-        <div>
-            <h1>Резервиране на зали към НБУ Библиотека</h1>
-            <h4><a href="">Списък на залите</a> | <a href="">Семинарна зала</a> | <a href="">Заявки</a></h4>
-        </div>
-    </header>
-    <div id="content">
-        <div class="grid-container">
-            <div class="grid-element">
-                <a href="/rooms/0">
-                    <div class="icon shadowed">
-                        <img src="/resources/images/seminars-hall.jpg" />
-                    </div>
-                    <div>Семинарна зала</div>
-                </a>
-            </div>
-            <div class="grid-element">
-                <a href="/rooms/1">
-                    <div class="icon shadowed">
-                        <img src="/resources/images/collective-work-hall.jpg" /></div>
-                    <div>Зала за колективна работа</div>
-                </a>
-            </div>
-            <div class="grid-element">
-                <a href="/rooms/0">
-                    <div class="icon shadowed">
-                        <img src="/resources/images/seminars-hall.jpg" />
-                    </div>
-                    <div>Семинарна зала</div>
-                </a>
-            </div>
-            <div class="grid-element">
-                <a href="/rooms/1">
-                    <div class="icon shadowed">
-                        <img src="/resources/images/collective-work-hall.jpg" /></div>
-                    <div>Зала за колективна работа</div>
-                </a>
-            </div>
-            <div class="grid-element">
-                <a href="/rooms/new">
-                    <div class="icon">
-                        <img src="/resources/images/plus-light.png" class="shadowed" />
-                    </div>
-                    <div>Добави нова зала</div>
-                </a>
-            </div>
-        </div>
-    </div>
-    <footer>
-        <div>
-            <a href="/login">Вход за администратори</a>
-            <a href="/about">За нас</a>
-            <a href="http://nbu.bg">НБУ</a>
-        </div>
-    </footer>
-</body>
+# Add extra stuff in head
+$t->head_elements = array(
+    '<link rel="stylesheet" type="text/css" href="/resources/css/rooms.css" />',
+    '<script type="text/javascript" src="/resources/javascipt/css_grid_annotator.js"></script>',
+);
+$t->render();
 
-</html>
+# TODO: Read the rooms from the backend
+$rooms = array(
+    array(
+        "room_id" => 0,
+        "title" => "Семинарна зала",
+        "img_url" => "seminars-hall.jpg",
+    ),
+    array(
+        "room_id" => 1,
+        "title" => "Зала за колективна работа",
+        "img_url" => "collective-work-hall.jpg",
+    ),
+);
+
+if (is_admin()) {
+    $rooms[] = array(
+        "room_id" => "new",
+        "title" => "Добави нова зала",
+        "img_url" => "plus-light.png",
+        "img_class" => "shadowed",
+    );
+}
+
+$t = new MyView("rooms.phtml");
+$t->rooms = $rooms;
+$t->render();
+
+$t = new MyView('footer.phtml');
+$t->render();
+?>
