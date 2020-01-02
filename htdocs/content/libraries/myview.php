@@ -1,7 +1,7 @@
 <?php
 class MyView {
     const TEMPLATE_DIR = 'templates/';
-    protected $vars = array();
+    protected $vars = [];
     protected $template_file;
 
     public function __construct($template_file, $vars = null) {

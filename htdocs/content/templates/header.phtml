@@ -6,10 +6,18 @@
     <title><?= $this->title ?></title>
     <link rel="stylesheet" type="text/css" href="/resources/css/common.css" />
     <meta http-equiv="x-ua-compatible" content="IE=edge" />
-    <?php foreach (($this->head_elements ? $this->head_elements : array()) as $e) {
+    <?php foreach (($this->head_elements ? $this->head_elements : []) as $e) {
         echo $e;
     }
     ?>
+
+    <?php foreach (($this->stylesheets ? $this->stylesheets : []) as $e) { ?>
+        <link rel="stylesheet" type="text/css" href="<?= $e ?>" />
+    <?php } ?>
+
+    <?php foreach (($this->scripts ? $this->scripts : []) as $e) { ?>
+        <script src="<?= $e ?>"></script>
+    <?php } ?>
 </head>
 
 <body>
