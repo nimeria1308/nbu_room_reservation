@@ -7,11 +7,11 @@ $t->title = "Резервиране на зали към НБУ Библиоте
 
 # Add extra stuff in head
 $t->stylesheets = [
-    '/resources/css/rooms.css',
+    'rooms.css',
 ];
 
 $t->scripts = [
-    '/resources/javascipt/css_grid_annotator.js',
+    'css_grid_annotator.js',
 ];
 
 $t->render();
