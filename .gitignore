@@ -1,1 +1,5 @@
+# Apache logs
 logs/
+
+# Compiled packages
+htdocs/resources/**/external/
