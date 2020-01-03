@@ -9,12 +9,11 @@ $t->title = "Резервиране на зали към НБУ Библиоте
 
 # Add extra stuff in head
 $t->stylesheets = [
-    '/external/node_modules/@fullcalendar/core/main.css',
+    'calendar.css',
 ];
 
 $t->scripts = [
-    '/external/node_modules/@fullcalendar/core/main.js',
-    '/resources/javascipt/calendar.js',
+    'external/calendar.js',
 ];
 
 $t->render();

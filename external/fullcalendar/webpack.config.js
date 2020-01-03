@@ -1,11 +1,13 @@
 const path = require('path');
+const scripts_path = path.join(__dirname, '..', '..', 'htdocs', 'resources', 'scripts', 'external');
 
 module.exports = {
   mode: 'development',
   // mode: 'production',
   devtool: 'sourcemap',
+
   entry: {
-    'calendar.js': './src/calendar.js',
+    'calendar': './src/calendar.js',
   },
   module: {
     rules: [
@@ -20,16 +22,7 @@ module.exports = {
     extensions: ['.css']
   },
   output: {
-    filename: '[name]',
-    filename: (chunkData) => {
-      let dir_map = {
-        '.js': 'scripts',
-        '.css': 'stylesheets'
-      };
-      let ext = path.extname(chunkData.chunk.name);
-      let dir = dir_map[ext];
-      return dir + '/external/[name]';
-    },
-    path: path.join(__dirname, '..', '..', 'htdocs', 'resources')
+    filename: '[name].js',
+    path: scripts_path
   }
 }

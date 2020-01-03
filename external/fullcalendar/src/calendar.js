@@ -4,7 +4,10 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
 
-import css from '@fullcalendar/core/main.css';
+require('@fullcalendar/core/main.css');
+require('@fullcalendar/daygrid/main.css');
+require('@fullcalendar/timegrid/main.css');
+require('@fullcalendar/list/main.css');
 
 document.addEventListener('DOMContentLoaded', function () {
     var calendarEl = document.getElementById('calendar');
