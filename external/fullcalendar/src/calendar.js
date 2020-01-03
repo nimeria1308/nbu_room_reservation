@@ -3,6 +3,8 @@ import interactionPlugin from '@fullcalendar/interaction';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
+import enLocale from '@fullcalendar/core/locales/en-gb'
+import bgLocale from '@fullcalendar/core/locales/bg'
 
 require('@fullcalendar/core/main.css');
 require('@fullcalendar/daygrid/main.css');
@@ -14,6 +16,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     var calendar = new Calendar(calendarEl, {
         plugins: [interactionPlugin, dayGridPlugin, timeGridPlugin, listPlugin],
+        locales: [bgLocale, enLocale],
+        locale: bgLocale,
         header: {
             left: 'prev,next today',
             center: 'title',
