@@ -2,8 +2,8 @@ const path = require('path');
 const scripts_path = path.join(__dirname, '..', '..', 'htdocs', 'resources', 'scripts', 'external');
 
 module.exports = {
-  mode: 'development',
   // mode: 'production',
+  mode: 'development',
   devtool: 'sourcemap',
 
   entry: {
@@ -18,8 +18,7 @@ module.exports = {
     ],
   },
   resolve: {
-    extensions: ['.js'],
-    extensions: ['.css']
+    extensions: ['.js', '.css'],
   },
   output: {
     filename: '[name].js',
