@@ -23,11 +23,12 @@ document.addEventListener('DOMContentLoaded', function () {
             center: 'title',
             right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
         },
-        defaultDate: '2018-01-12',
+        nowIndicator: true,
+        // defaultDate: '2018-01-12',
         navLinks: true, // can click day/week names to navigate views
         editable: true,
         eventLimit: true, // allow "more" link when too many events
-        events: [
+        events: '/content/services/events.php', /*[
             {
                 title: 'All Day Event',
                 start: '2018-01-01',
@@ -46,6 +47,12 @@ document.addEventListener('DOMContentLoaded', function () {
                 id: 999,
                 title: 'Repeating Event',
                 start: '2018-01-16T16:00:00'
+            },
+            {
+                title: 'recurring 2',
+                startTime: '11:00:00',
+                daysOfWeek: [ '2', '4' ],
+                color: 'red'
             },
             {
                 title: 'Conference',
@@ -82,8 +89,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 url: 'http://google.com/',
                 start: '2018-01-28'
             }
-        ]
+        ]*/
     });
 
     calendar.render();
+    window.calendar = calendar;
 });
