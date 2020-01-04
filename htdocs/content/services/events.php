@@ -14,8 +14,9 @@ function read_events_from_backend($start, $end)
     # TODO: move this to backend
     $start_string = $start->format(DateTime::ISO8601);
     $end_string = $end->format(DateTime::ISO8601);
-    error_log("from: $start_string to: $end_string");
+    // error_log("from: $start_string to: $end_string");
 
+    # Note: ID for all instances of a recurring event stays the same.
     return [
         [
             "id" => 1,

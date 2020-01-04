@@ -13,6 +13,7 @@ $t->stylesheets = [
 ];
 
 $t->scripts = [
+    'jquery-3.4.1.min.js',
     'calendar.js',
     'external/calendar.js',
 ];

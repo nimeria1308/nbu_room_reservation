@@ -15,7 +15,11 @@ RewriteRule ^([a-zA-Z0-9_]+)/?$ /content/pages/$1.php
 #   /rooms/0/
 RewriteRule ^rooms/(\d+)/?$ /content/pages/room.php?room_id=$1 [QSA]
 
-# Queries for a specific room:
-#   /rooms/0/queries
-#   /rooms/0/queries/
-RewriteRule ^rooms/(\d+)/queries/?$ /content/pages/queries.php?room_id=$1 [QSA]
+# Create a new reservation
+#   /rooms/0/reservations/new
+RewriteRule ^rooms/(\d+)/reservations/new?$ /content/pages/new_reservation.php?room_id=$1 [QSA]
+
+# Reservations for a specific room:
+#   /rooms/0/reservations
+#   /rooms/0/reservations/
+RewriteRule ^rooms/(\d+)/reservations/?$ /content/pages/reservations.php?room_id=$1 [QSA]
