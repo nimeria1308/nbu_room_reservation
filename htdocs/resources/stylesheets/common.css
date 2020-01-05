@@ -36,14 +36,17 @@ body {
     flex: 1;
 }
 
-#header, #content {
+body>div {
     padding: 1.3em;
+}
+
+#header, #content {
     color: white;
 }
 
 #content {
     padding-top: 0;
-    padding-right: 0;
+    padding-bottom: 0;
 }
 
 #footer>div {

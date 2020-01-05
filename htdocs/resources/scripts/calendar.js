@@ -22,7 +22,7 @@ function calendar_ready_callback(calendar) {
                 'en': 'events'
             }[locale],
             'click': function () {
-                // TODO
+                location.href = '/rooms/' + room_id + '/events';
             }
         };
     }
