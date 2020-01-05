@@ -3,6 +3,9 @@ RewriteEngine on
 # Redirect index to room selection
 RewriteRule ^$ /rooms [R]
 
+# login submit
+RewriteRule ^login/?$ /content/services/login.php
+
 # General one-word rule, e.g.
 #   /rooms
 #   /rooms/

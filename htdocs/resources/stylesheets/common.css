@@ -3,7 +3,8 @@ html {
     color: white;
     background-color: #333;
     background: linear-gradient(#777 0%, #111 100%);
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+    line-height: 1.5;
 }
 
 header h1 {
@@ -11,8 +12,7 @@ header h1 {
     text-align: center;
 }
 
-a,
-a:visited {
+a, a:visited {
     color: lightgray;
 }
 
@@ -25,8 +25,7 @@ body {
     margin: 0;
 }
 
-header,
-footer {
+header, footer {
     padding: 20px;
     color: white;
 }
@@ -47,4 +46,41 @@ footer a {
 .shadowed {
     -webkit-filter: drop-shadow(5px 5px 5px #222);
     filter: drop-shadow(5px 5px 5px #222);
+}
+
+@keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Firefox < 16 */
+@-moz-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Safari, Chrome and Opera > 12.1 */
+@-webkit-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Internet Explorer */
+@-ms-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Opera < 12.1 */
+@-o-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+html {
+    -webkit-animation: fadein 1s;   /* Safari, Chrome and Opera > 12.1 */
+    -moz-animation: fadein 1s;      /* Firefox < 16 */
+     -ms-animation: fadein 1s;      /* Internet Explorer */
+      -o-animation: fadein 1s;      /* Opera < 12.1 */
+         animation: fadein 1s;
 }

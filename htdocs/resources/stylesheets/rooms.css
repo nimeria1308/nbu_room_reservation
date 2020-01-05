@@ -24,6 +24,7 @@
 
 .grid-element>a:hover {
     background-color: rgba(0.0, 0.0, 0.0, 0.2);
+    font-size: 120%;
     transform: scale(1.05);
 }
 

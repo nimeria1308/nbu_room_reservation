@@ -47,7 +47,7 @@ function calendar_ready_callback(calendar) {
 
     function updateEvent(info, event_data) {
         function fail(resp) {
-            alert('Failed updating the event');
+            alert('Неуспешно обновяване на събитието');
             info.revert();
             console.log(resp);
         }
@@ -100,8 +100,6 @@ function calendar_ready_callback(calendar) {
     });
 
     calendar.render();
-
-    alert('is_admin: ' + is_admin);
 
     global_calendar = calendar;
 }
