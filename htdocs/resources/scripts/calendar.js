@@ -1,6 +1,7 @@
 function calendar_ready_callback(calendar) {
 
-    var locale = 'bg';
+    var locale = cookie.get('locale', 'bg');
+    var is_admin = cookie.get('is_admin', false);
 
     var options = {
         'locale': locale,
@@ -30,6 +31,7 @@ function calendar_ready_callback(calendar) {
         'eventConstraint': {
             'start': new Date(),    // cannot move events to the past
         },
+        'selectMirror': true,
         'editable': true
     };
 
@@ -98,6 +100,8 @@ function calendar_ready_callback(calendar) {
     });
 
     calendar.render();
+
+    alert('is_admin: ' + is_admin);
 
     global_calendar = calendar;
 }

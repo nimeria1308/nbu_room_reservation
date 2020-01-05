@@ -1,3 +1,18 @@
+<?php
+# default stylesheets
+$stylesheets = array_merge($this->stylesheets ? $this->stylesheets : [], [
+'common.css',
+'jquery.fancybox.min.css',
+]);
+
+# default scripts
+$scripts = array_merge($this->scripts ? $this->scripts : [], [
+    'jquery-3.4.1.min.js',
+    'cookie.umd.min.js',
+    'jquery.fancybox.min.js',
+]);
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -5,17 +20,16 @@
     <meta charset="UTF-8">
     <meta http-equiv="x-ua-compatible" content="IE=edge" />
     <title><?= $this->title ?></title>
-    <link rel="stylesheet" type="text/css" href="/resources/stylesheets/common.css" />
     <?php foreach (($this->head_elements ? $this->head_elements : []) as $e) {
         echo $e;
     }
     ?>
 
-    <?php foreach (($this->stylesheets ? $this->stylesheets : []) as $e) { ?>
+    <?php foreach ($stylesheets as $e) { ?>
         <link rel="stylesheet" type="text/css" href="/resources/stylesheets/<?= $e ?>" />
     <?php } ?>
 
-    <?php foreach (($this->scripts ? $this->scripts : []) as $e) { ?>
+    <?php foreach ($scripts as $e) { ?>
         <script src="/resources/scripts/<?= $e ?>"></script>
     <?php } ?>
 </head>
