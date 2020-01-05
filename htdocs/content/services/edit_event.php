@@ -1,23 +1,6 @@
 <?php
 
 # Parse the event from the string provided by the frontend
-# The resulting event is as follows
-#  {
-#    id,
-#    startDelta,
-#    endDelta,
-#    old: {
-#      start,
-#      end,
-#    },
-#    new: {
-#      start,
-#      end,
-#    }
-#  }
-# Where:
-# * startDelta/endDelta are { years, months, days, milliseconds }
-# * start/end are DateTime in the local zone
 function read_event($event)
 {
     # Decode from JSON
@@ -42,6 +25,23 @@ function read_event($event)
 
 # returns true on successfully updating the event
 # otherwise false, which will revert it in the frontend
+# $event is as follows
+#  {
+#    id,
+#    startDelta,
+#    endDelta,
+#    old: {
+#      start,
+#      end,
+#    },
+#    new: {
+#      start,
+#      end,
+#    }
+#  }
+# Where:
+# * startDelta/endDelta are { years, months, days, milliseconds }
+# * start/end are DateTime in the local zone
 function update_event_on_backend($event)
 {
     // error_log(print_r($event, true));

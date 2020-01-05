@@ -24,7 +24,6 @@ document.addEventListener('DOMContentLoaded', function () {
                     alert('Грешно име или парола');
                     return;
                 }
-                alert("Успешно влизане");
                 $.fancybox.getInstance().close();
                 setTimeout(function () {
                     location.reload(true);

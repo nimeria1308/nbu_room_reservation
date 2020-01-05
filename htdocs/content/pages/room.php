@@ -1,13 +1,19 @@
 <?php
 require_once('libraries/myview.php');
 require_once('libraries/isadmin.php');
+require_once('model/rooms.php');
 
-#TODO: Read room details from backend
+$room_id = $_GET['room_id'];
+$room = get_room($room_id);
 
 $t = new MyView('header.phtml');
-$t->title = "Резервиране на зали към НБУ Библиотека";
+$t->title = $room['title'];
 
 # Add extra stuff in head
+$t->head_elements = [
+    "<script>var room_id=$room_id; var room_color='$room[color]';</script>"
+];
+
 $t->stylesheets = [
     'calendar.css',
 ];

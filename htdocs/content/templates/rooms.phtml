@@ -1,8 +1,9 @@
 <div class="grid-container">
 
 <?php
-foreach ($this->rooms as $room) {
+foreach ($this->rooms as $room_id => $room) {
     $t = new MyView("rooms_element.phtml", $room);
+    $t->room_id = $room_id;
     $t->render();
 }
 ?>

@@ -1,6 +1,7 @@
 <?php
 require_once('libraries/myview.php');
 require_once('libraries/isadmin.php');
+require_once('model/rooms.php');
 
 $t = new MyView('header.phtml');
 $t->title = "Резервиране на зали към НБУ Библиотека";
@@ -17,22 +18,10 @@ $t->scripts = [
 $t->render();
 
 # TODO: Read the rooms from the backend
-$rooms = [
-    [
-        "room_id" => 0,
-        "title" => "Семинарна зала",
-        "img_url" => "seminars-hall.jpg",
-    ],
-    [
-        "room_id" => 1,
-        "title" => "Зала за колективна работа",
-        "img_url" => "collective-work-hall.jpg",
-    ],
-];
+$rooms = get_rooms();
 
 if (is_admin()) {
-    $rooms[] = [
-        "room_id" => "new",
+    $rooms['new'] = [
         "title" => "Добави нова зала",
         "img_url" => "plus-light.png",
         "img_class" => "shadowed",

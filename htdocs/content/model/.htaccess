@@ -1,0 +1,3 @@
+# Not accessible from clients, only from backend
+Order deny, allow
+deny from all

@@ -21,6 +21,7 @@ function calendar_ready_callback(calendar) {
             center: 'title',
             right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
         },
+        'eventColor': room_color,   // event color for the current room
         'height': 'auto',           // don't want any scrollbars
         'nowIndicator': true,       // a line indicator for time of day
         'navLinks': true,           // can click day/week names to navigate views
@@ -107,7 +108,7 @@ function calendar_ready_callback(calendar) {
         updateEvent(info, event_data);
     });
 
-    calendar.addEventSource('/content/services/events.php?room_id=' + 0);
+    calendar.addEventSource('/content/services/events.php?room_id=' + room_id);
 
     calendar.render();
 
