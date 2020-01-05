@@ -1,7 +1,7 @@
 <?php
 require_once('libraries/myview.php');
 require_once('libraries/isadmin.php');
-require_once('model/rooms.php');
+require_once('model/room.php');
 
 $room_id = $_GET['room_id'];
 $room = get_room($room_id);

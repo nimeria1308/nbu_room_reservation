@@ -1,7 +1,7 @@
 <?php
 require_once('libraries/myview.php');
 require_once('libraries/isadmin.php');
-require_once('model/rooms.php');
+require_once('model/room.php');
 
 $t = new MyView('header.phtml');
 $t->title = "Резервиране на зали към НБУ Библиотека";
@@ -17,7 +17,6 @@ $t->scripts = [
 
 $t->render();
 
-# TODO: Read the rooms from the backend
 $rooms = get_rooms();
 
 if (is_admin()) {

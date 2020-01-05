@@ -7,7 +7,6 @@ $t->title = "Заявки";
 
 $t->render();
 
-# TODO: Read the rooms from the backend
 $t = new MyView("events.phtml");
 $t->render();
 

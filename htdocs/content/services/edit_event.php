@@ -1,7 +1,7 @@
 <?php
 
 # Parse the event from the string provided by the frontend
-function read_event($event)
+function read_event_from_request($event)
 {
     # Decode from JSON
     $event = json_decode($event);
@@ -23,36 +23,8 @@ function read_event($event)
     return $event;
 }
 
-# returns true on successfully updating the event
-# otherwise false, which will revert it in the frontend
-# $event is as follows
-#  {
-#    id,
-#    startDelta,
-#    endDelta,
-#    old: {
-#      start,
-#      end,
-#    },
-#    new: {
-#      start,
-#      end,
-#    }
-#  }
-# Where:
-# * startDelta/endDelta are { years, months, days, milliseconds }
-# * start/end are DateTime in the local zone
-function update_event_on_backend($event)
-{
-    // error_log(print_r($event, true));
-
-    # TODO
-
-    return true;
-}
-
-$event = read_event($_POST['event']);
-$update_status = update_event_on_backend($event);
+$event = read_event_from_request($_POST['event']);
+$update_status = update_calendar_event($event);
 
 header("Content-Type: application/json; charset=UTF-8");
 echo json_encode(['status' => ($update_status ? 'ok' : 'fail')]);
