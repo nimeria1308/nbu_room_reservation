@@ -1,4 +1,5 @@
 <?php
+require_once('model/event.php');
 
 # Parse the event from the string provided by the frontend
 function read_event_from_request($event)

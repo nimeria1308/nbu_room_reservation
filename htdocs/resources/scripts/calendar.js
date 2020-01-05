@@ -11,6 +11,7 @@ function calendar_ready_callback(calendar) {
             }[locale],
             'click': function () {
                 // TODO
+                alert('Нова резервация');
             }
         }
     };
@@ -64,7 +65,8 @@ function calendar_ready_callback(calendar) {
     });
 
     calendar.on('select', function (info) {
-        console.log(info);
+        // TODO
+        alert('Нова резервация за ' + info.start + ' до ' + info.end);
         calendar.unselect();
     });
 
