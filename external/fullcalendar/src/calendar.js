@@ -17,7 +17,6 @@ document.addEventListener('DOMContentLoaded', function () {
     var calendar = new Calendar(calendarEl, {
         plugins: [interactionPlugin, dayGridPlugin, timeGridPlugin, listPlugin],
         locales: [bgLocale, enLocale],
-        events: '/content/services/events.php',
     });
 
     calendar_ready_callback(calendar);

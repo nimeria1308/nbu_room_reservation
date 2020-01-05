@@ -107,6 +107,8 @@ function calendar_ready_callback(calendar) {
         updateEvent(info, event_data);
     });
 
+    calendar.addEventSource('/content/services/events.php?room_id=' + 0);
+
     calendar.render();
 
     global_calendar = calendar;

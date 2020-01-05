@@ -6,6 +6,7 @@ require_once('libraries/isadmin.php');
 
 $events_start = new DateTime($_GET['start']);
 $events_end = new DateTime($_GET['end']);
+$room_id = $_GET['room_id'];
 
 # $end is not inclusive
 function read_events_from_backend($start, $end)
