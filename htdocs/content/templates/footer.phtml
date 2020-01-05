@@ -2,30 +2,30 @@
 require_once('libraries/isadmin.php');
 ?>
 
-<div style="display: none;" id="login_screen" class="light">
-    <form style="width:100%;" id="login_form" action="/login" method="post">
-        <h2 class="mb-3">
-            Вход за администратори
-        </h2>
-        <p>
-            Въведете име и парола, за да влезете с права на администратор.
-        </p>
-        <p>
-            <label for="username">Потребителско име</label>
-            <input type="text" value="" name="username" id="username" class="form-control" placeholder="username" />
-        </p>
-        <p>
-            <label for="password">Парола</label>
-            <input type="text" value="" name="password" id="password" class="form-control" placeholder="password" />
-        </p>
-        <p class="mb-0 text-right">
-            <input type="submit" class="btn btn-primary" value="Влез" />
-        </p>
-    </form>
-</div>
-
 </div>
 <div id="footer">
+    <div style="display: none;" id="login_screen" class="light">
+        <form style="width:100%;" id="login_form" action="/login" method="post">
+            <h2 class="mb-3">
+                Вход за администратори
+            </h2>
+            <p>
+                Въведете име и парола, за да влезете с права на администратор.
+            </p>
+            <p>
+                <label for="username">Потребителско име</label>
+                <input type="text" value="" name="username" id="username" class="form-control" placeholder="username" />
+            </p>
+            <p>
+                <label for="password">Парола</label>
+                <input type="text" value="" name="password" id="password" class="form-control" placeholder="password" />
+            </p>
+            <p class="mb-0 text-right">
+                <input type="submit" class="btn btn-primary" value="Влез" />
+            </p>
+        </form>
+    </div>
+
     <div>
         <?php if (!is_admin()) { ?>
             <a data-fancybox data-src="#login_screen" href="javascript:;">Вход за администратори</a>

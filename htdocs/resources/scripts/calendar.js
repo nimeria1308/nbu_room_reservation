@@ -3,21 +3,35 @@ function calendar_ready_callback(calendar) {
     var locale = cookie.get('locale', 'bg');
     var is_admin = cookie.get('is_admin', false);
 
+    var buttons = {
+        'new_reservation': {
+            'text': {
+                'bg': 'нова резервация',
+                'en': 'new booking'
+            }[locale],
+            'click': function () {
+                // TODO
+            }
+        }
+    };
+
+    if (is_admin) {
+        buttons['events'] = {
+            'text': {
+                'bg': 'заявки',
+                'en': 'events'
+            }[locale],
+            'click': function () {
+                // TODO
+            }
+        };
+    }
+
     var options = {
         'locale': locale,
-        'customButtons': {
-            'new_reservation': {
-                'text': {
-                    'bg': 'нова резервация',
-                    'en': 'new booking'
-                }[locale],
-                'click': function () {
-                    // TODO
-                }
-            }
-        },
+        'customButtons': buttons,
         'header': {
-            left: 'prev,next today new_reservation',
+            left: 'prev,next today new_reservation events',
             center: 'title',
             right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
         },

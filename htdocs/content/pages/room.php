@@ -23,15 +23,6 @@ $t->scripts = [
     'external/calendar.js',
 ];
 
-if (is_admin()) {
-    $t->menu = [
-        [
-            'url' => "/rooms/$room_id/queries",
-            'title' => 'Заявки',
-        ],
-    ];
-}
-
 $t->render();
 
 # Room view

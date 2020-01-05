@@ -36,7 +36,7 @@ body {
     flex: 1;
 }
 
-body>div {
+#header, #content {
     padding: 1.3em;
     color: white;
 }

@@ -1,8 +1,11 @@
 <?php
 # default menu links
-$menu = array_merge([
-    ['url' => '/', 'title' => 'Списък на залите'],
-], $this->menu ? $this->menu : []);
+$menu = $this->menu ? $this->menu : [];
+if (!in_array($_SERVER['REQUEST_URI'], ['/rooms', '/rooms/'])) {
+    $menu = array_merge([
+        ['url' => '/', 'title' => 'Списък на залите'],
+    ], $menu);
+}
 
 # default stylesheets
 $stylesheets = array_merge($this->stylesheets ? $this->stylesheets : [], [
