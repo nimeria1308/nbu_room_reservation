@@ -7,7 +7,7 @@ html {
     line-height: 1.5;
 }
 
-header h1 {
+#header h1 {
     border-bottom: black 1px solid;
     text-align: center;
 }
@@ -25,21 +25,33 @@ body {
     margin: 0;
 }
 
-header, footer {
-    padding: 20px;
+body {
+    /* height: 0; */ /* IE hack to make flex work, but ruins the background effect */
+    min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+}
+
+#content {
+    flex: 1;
+}
+
+body>div {
+    padding: 1.3em;
     color: white;
 }
 
-footer {
-    border-top: black 1px solid;
+#content {
+    padding-top: 0;
+    padding-right: 0;
 }
 
-footer>div {
-    margin: 0.5em;
+#footer>div {
+    border-top: black 1px solid;
     text-align: center;
 }
 
-footer a {
+#footer a, #header a {
     padding: 0 0.5em;
 }
 

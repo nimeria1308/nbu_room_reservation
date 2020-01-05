@@ -1,13 +1,11 @@
 .grid-container {
     display: grid;
     grid-template-columns: auto auto auto auto;
-    padding: 2em;
+    padding: 0 2em;
     width: 60%;
 }
 
-
 /* MSIE11 fallback */
-
 .grid-container {
     display: -ms-grid;
     -ms-grid-columns: auto auto auto auto;

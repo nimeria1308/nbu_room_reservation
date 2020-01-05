@@ -1,9 +1,14 @@
 <?php
+# default menu links
+$menu = array_merge([
+    ['url' => '/', 'title' => 'Списък на залите'],
+], $this->menu ? $this->menu : []);
+
 # default stylesheets
 $stylesheets = array_merge($this->stylesheets ? $this->stylesheets : [], [
-'common.css',
-'bootstrap.css',
-'jquery.fancybox.min.css',
+    'common.css',
+    'bootstrap.css',
+    'jquery.fancybox.min.css',
 ]);
 
 # default scripts
@@ -37,10 +42,15 @@ $scripts = array_merge($this->scripts ? $this->scripts : [], [
 </head>
 
 <body>
-    <header>
+    <div id="header">
         <div>
             <h1><?= $this->title ?></h1>
-            <h4><a href="/">Списък на залите</a> | <a href="">Семинарна зала</a> | <a href="">Заявки</a></h4>
+            <h4>
+                <?php
+                foreach ($menu as $m) {
+                    echo "<a href='$m[url]'>$m[title]</a>";
+                } ?>
+            </h4>
         </div>
-    </header>
+    </div>
     <div id="content">
