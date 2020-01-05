@@ -34,3 +34,22 @@ document.addEventListener('DOMContentLoaded', function () {
             });
     });
 });
+
+document.addEventListener('DOMContentLoaded', function () {
+    var logout = $("#logout");
+    console.log(logout);
+
+    // submitting to login without credentials will log us out.
+    var url = '/login';
+
+    logout.on("click", function (e) {
+        e.preventDefault(); // avoid to execute the actual submit of the form.
+
+        $.post(url)
+            .done(function (data) {
+                location.reload(true);
+            }).fail(function (resp) {
+                alert("Сървърна грешка");
+            });
+    });
+});

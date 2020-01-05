@@ -12,7 +12,7 @@ function calendar_ready_callback(calendar) {
                     'en': 'new booking'
                 }[locale],
                 'click': function () {
-                    alert('clicked the custom button!');
+                    // TODO
                 }
             }
         },
@@ -26,13 +26,17 @@ function calendar_ready_callback(calendar) {
         'navLinks': true,           // can click day/week names to navigate views
         'eventLimit': true,         // allow "more" link when too many events
         'eventOverlap': false,      // reservations cannot overlap
-        'selectable': true,         // can be selected
+        'selectable': true,         // can be selected to add a new event
         'allDaySlot': false,        // not displaying allday
         'eventConstraint': {
-            'start': new Date(),    // cannot move events to the past
+            'start': new Date()     // cannot move events to the past
         },
-        'selectMirror': true,
-        'editable': true
+        'selectConstraint': {
+            'start': new Date()     // cannot create events in the past
+        },
+        'selectMirror': true,       // this make selections look like adding new events
+        'selectOverlap': false,     // cannot select through existing events
+        'editable': is_admin
     };
 
     Object.keys(options).forEach(function (key) {
@@ -40,9 +44,13 @@ function calendar_ready_callback(calendar) {
         calendar.setOption(key, value);
     });
 
+    calendar.setOption('selectAllow', function(info) {
+        return calendar.view.type.startsWith("timeGrid");
+    });
+
     calendar.on('select', function (info) {
-        alert('select');
         console.log(info);
+        calendar.unselect();
     });
 
     function updateEvent(info, event_data) {
