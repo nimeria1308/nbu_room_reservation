@@ -2,3 +2,49 @@
     max-width: 80%;
     margin: 0 auto;
 }
+
+.fc-view-container {
+    background-color: #333;
+}
+
+div.fc-view-container td, div.fc-view-container th {
+    /* border: 1px solid #777 !important; */
+}
+
+td.fc-widget-content {
+    border: 1px solid #777 !important;
+}
+
+.fc-widget-header {
+    color: white;
+}
+
+td.fc-today {
+    background-color: #555 !important;
+}
+
+.fc-list-heading {
+    /* background-color: #333 !important; */
+    background: none !important;
+}
+
+/* .fc-today a {
+    color: black !important;
+} */
+
+.fc-widget-header {
+    background: none !important;
+}
+
+.fc-list-item {
+    color: white;
+    background-color: #555;
+}
+
+.fc-time {
+    color: lightgray;
+}
+
+.fc-center {
+    color: white;
+}
