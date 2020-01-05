@@ -41,44 +41,62 @@ function read_calendar_events($id, $start, $end)
         0 => [
             [
                 "id" => 1,
-                "title" => 'Repeating Event',
+                "title" => 'Семинар към курс по Python',
+                "start" => new DateTime("monday last week 14:00"),
+                "end" => new DateTime("monday last week 17:00"),
+            ],
+            [
+                "id" => 1,
+                "title" => 'Семинар към курс по Python',
                 "start" => new DateTime("monday this week 14:00"),
                 "end" => new DateTime("monday this week 17:00"),
             ],
             [
                 "id" => 1,
-                "title" => 'Repeating Event',
+                "title" => 'Семинар към курс по Python',
                 "start" => new DateTime("monday next week 14:00"),
                 "end" => new DateTime("monday next week 17:00"),
             ],
             [
-                "id" => 1,
-                "title" => 'Repeating Event',
-                "start" => new DateTime("tuesday this week 16:00"),
-                "end" => new DateTime("tuesday this week 19:00"),
+                "id" => 2,
+                "title" => 'Извънреден семинар по киберсигурност',
+                "start" => new DateTime("tuesday this week 9:30"),
+                "end" => new DateTime("tuesday this week 14:45"),
+            ],
+            [
+                "id" => 10,
+                "title" => 'Семинар по древни езици',
+                "start" => new DateTime("wednesday this week 11:00"),
+                "end" => new DateTime("wednesday this week 19:00"),
             ],
         ],
         # room 1
         1 => [
             [
-                "id" => 1,
-                "title" => 'XRepeating Event',
-                "start" => new DateTime("monday this week 14:00"),
-                "end" => new DateTime("monday this week 17:00"),
+                "id" => 13,
+                "title" => 'Колективно задание по PHP',
+                "start" => new DateTime("thursday this week 10:00"),
+                "end" => new DateTime("thursday this week 16:00"),
             ],
             [
-                "id" => 1,
-                "title" => 'Repeating Event',
-                "start" => new DateTime("monday next week 14:00"),
-                "end" => new DateTime("monday next week 17:00"),
+                "id" => 19,
+                "title" => 'Happy friday',
+                "start" => new DateTime("friday last week 17:00"),
+                "end" => new DateTime("friday last week 17:15"),
             ],
             [
-                "id" => 1,
-                "title" => 'Repeating Event',
-                "start" => new DateTime("tuesday this week 16:00"),
-                "end" => new DateTime("tuesday this week 19:00"),
+                "id" => 19,
+                "title" => 'Happy friday',
+                "start" => new DateTime("friday this week 17:00"),
+                "end" => new DateTime("friday this week 17:15"),
             ],
-        ]
+            [
+                "id" => 19,
+                "title" => 'Happy friday',
+                "start" => new DateTime("friday next week 17:00"),
+                "end" => new DateTime("friday next week 17:15"),
+            ],
+        ],
     ];
 
     return $events[$id];
