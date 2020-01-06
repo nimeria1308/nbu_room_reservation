@@ -27,7 +27,7 @@ $t->render();
 
 # Room view
 $t = new MyView('room.phtml');
-$t->id = $_GET['room_id'];
+$t->id = $room_id;
 $t->render();
 
 # Footer

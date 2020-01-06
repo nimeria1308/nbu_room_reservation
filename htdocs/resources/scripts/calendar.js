@@ -3,6 +3,22 @@ function calendar_ready_callback(calendar) {
     var locale = cookie.get('locale', 'bg');
     var is_admin = cookie.get('is_admin', false);
 
+    function new_event(info) {
+        if (info) {
+            var instance = $.fancybox.open({
+                'src': '/content/pages/new_event.php?room_id=' + room_id
+                        + '&start=' + encodeURIComponent(info.startStr)
+                        + '&end=' + encodeURIComponent(info.endStr),
+                'type': 'ajax'
+            });
+        } else {
+            var instance = $.fancybox.open({
+                'src': '/content/pages/new_event.php?room_id=' + room_id,
+                'type': 'ajax'
+            });
+        }
+    }
+
     var buttons = {
         'new_reservation': {
             'text': {
@@ -10,8 +26,7 @@ function calendar_ready_callback(calendar) {
                 'en': 'new booking'
             }[locale],
             'click': function () {
-                // TODO
-                alert('Нова резервация');
+                new_event();
             }
         }
     };
@@ -44,6 +59,8 @@ function calendar_ready_callback(calendar) {
         'eventOverlap': false,      // reservations cannot overlap
         'selectable': true,         // can be selected to add a new event
         'allDaySlot': false,        // not displaying allday
+        'minTime': '07:00:00',      // start at 7
+        'maxTime': '21:00:00',      // close by 9
         'eventConstraint': {
             'start': new Date()     // cannot move events to the past
         },
@@ -65,8 +82,7 @@ function calendar_ready_callback(calendar) {
     });
 
     calendar.on('select', function (info) {
-        // TODO
-        alert('Нова резервация за ' + info.start + ' до ' + info.end);
+        new_event(info);
         calendar.unselect();
     });
 
