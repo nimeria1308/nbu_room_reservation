@@ -3,12 +3,28 @@ function calendar_ready_callback(calendar) {
     var locale = cookie.get('locale', 'bg');
     var is_admin = cookie.get('is_admin', false);
 
+    // Работно време на библиотеката
+    var business_hours = [
+        {
+            // Weekdays
+            daysOfWeek: [1, 2, 3, 4, 5],
+            startTime: '08:00',
+            endTime: '21:00'
+        },
+        {
+            // Weekends
+            daysOfWeek: [6, 0], // Thursday, Friday
+            startTime: '09:00',
+            endTime: '17:30'
+        }
+    ];
+
     function new_event(info) {
         if (info) {
             var instance = $.fancybox.open({
                 'src': '/content/pages/new_event.php?room_id=' + room_id
-                        + '&start=' + encodeURIComponent(info.startStr)
-                        + '&end=' + encodeURIComponent(info.endStr),
+                    + '&start=' + encodeURIComponent(info.startStr)
+                    + '&end=' + encodeURIComponent(info.endStr),
                 'type': 'ajax'
             });
         } else {
@@ -59,14 +75,11 @@ function calendar_ready_callback(calendar) {
         'eventOverlap': false,      // reservations cannot overlap
         'selectable': true,         // can be selected to add a new event
         'allDaySlot': false,        // not displaying allday
-        'minTime': '07:00:00',      // start at 7
-        'maxTime': '21:00:00',      // close by 9
-        'eventConstraint': {
-            'start': new Date()     // cannot move events to the past
-        },
-        'selectConstraint': {
-            'start': new Date()     // cannot create events in the past
-        },
+        'businessHours': business_hours,
+        'minTime': '08:00:00',
+        'maxTime': '21:00:00',
+        'eventConstraint': business_hours,
+        'selectConstraint': business_hours,
         'selectMirror': true,       // this make selections look like adding new events
         'selectOverlap': false,     // cannot select through existing events
         'editable': is_admin
@@ -77,8 +90,16 @@ function calendar_ready_callback(calendar) {
         calendar.setOption(key, value);
     });
 
-    calendar.setOption('selectAllow', function(info) {
-        return calendar.view.type.startsWith("timeGrid");
+    calendar.setOption('eventAllow', function(info) {
+        // do not allow moving events into the past
+        return info.start >= new Date();
+    });
+
+    calendar.setOption('selectAllow', function (info) {
+        // only allow selections on time grid
+        // and ones that are not in the past
+        return calendar.view.type.startsWith("timeGrid")
+                && info.start >= new Date();
     });
 
     calendar.on('select', function (info) {
