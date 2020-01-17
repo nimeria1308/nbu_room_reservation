@@ -38,9 +38,18 @@ function get_room($id) {
                 "color" => $row['image_path'],
             ]
         ];
-   
+        
         return $room[$id];
     }
 
     //return get_rooms()[$id];
+}
+
+function delete_room($id){
+    require_once "database.php";
+
+    $delete_id = "DELETE FROM room WHERE room_id=$id";
+    if(!mysqli_query($db,$delete_id)){
+        error_log("Given id: $id is invalid");
+    }
 }
