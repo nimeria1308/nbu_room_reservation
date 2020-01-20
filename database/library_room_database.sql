@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 18, 2020 at 04:11 PM
+-- Generation Time: Jan 20, 2020 at 10:46 AM
 -- Server version: 10.4.8-MariaDB
--- PHP Version: 7.3.11
+-- PHP Version: 7.3.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -30,7 +30,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `admin` (
   `name` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL,
+  `password` varchar(60) NOT NULL,
   `admin_id` int(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -39,7 +39,7 @@ CREATE TABLE `admin` (
 --
 
 INSERT INTO `admin` (`name`, `password`, `admin_id`) VALUES
-('admin', '$2y$10$YIB3HmCSQMFBRhFzp1cOVu.wIc59I.8Z0.NBndwzePX.5pRkvJ6EK\r\n', 1);
+('admin', '$2y$10$OUz/MLF.KQIvCB.PnjLcReEliAspB8ePllL0IHq4rHAhfQS2B/5Xu', 1);
 
 -- --------------------------------------------------------
 
