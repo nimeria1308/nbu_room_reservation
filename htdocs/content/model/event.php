@@ -27,6 +27,41 @@ function update_calendar_event($event)
     return true;
 }
 
+function send_email($address,$event_id){
+    require 'vendor/autoload.php'; 
+
+    use PHPMailer\PHPMailer\PHPMailer;
+    use PHPMailer\PHPMailer\Exception;
+    
+    require '../PHP/PHPMailer/src/Exception.php';
+    require '../PHP/PHPMailer/src/PHPMailer.php';
+    require '../PHP/PHPMailer/src/SMTP.php';
+
+    $mail = new PHPMailer(true);
+    $mail->isSMTP();
+    $mail->CharSet = 'UTF-8';
+    $mail->Encoding = 'base64';
+    $mail->SMTPDebug  = 0;  
+    $mail->SMTPSecure = "tls";
+    $mail->Mailer = "smtp";
+    $mail->Host= "smtp.gmail.com";
+    $mail->SMTPAuth   = true;                                   
+    $mail->Username   = 'nbuHallReservation';                     
+    $mail->Password   = '5bd4fr3VitaN';                               
+    $mail->SMTPSecure = 'ssl';         
+    $mail->Port       = 465;
+
+    $link="localhost:8080/cancel_event?id=$event_id";
+    $delete_link="<a href='https://<?php echo $link' >link</a>";
+
+    $subject= "Направена заявка за използване на зала в библиотека на НБУ";
+    $message= "Вие успешно направихте резервация за използване на зала в библиотеката на НБУ.
+    Това съобщение е автоматично генерирано, моля не отговаряйте на него.
+    Натиснете на линка ако искате да се откажете резервацията:
+    $delete_link";
+    mail($address,$subject,$message);
+}
+
 # $end is not inclusive
 function read_calendar_events($id, $start, $end)
 {
