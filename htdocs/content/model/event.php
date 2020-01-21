@@ -21,9 +21,6 @@
 function update_calendar_event($event)
 {
     // error_log(print_r($event, true));
-
-    # TODO: implement in backend
-
     return true;
 }
 
@@ -51,15 +48,19 @@ function send_email($address,$event_id){
     $mail->SMTPSecure = 'ssl';         
     $mail->Port       = 465;
 
-    $link="localhost:8080/cancel_event?id=$event_id";
-    $delete_link="<a href='https://<?php echo $link' >link</a>";
+    $link="https://localhost:8080/cancel_event?id=$id";
 
     $subject= "Направена заявка за използване на зала в библиотека на НБУ";
     $message= "Вие успешно направихте резервация за използване на зала в библиотеката на НБУ.
     Това съобщение е автоматично генерирано, моля не отговаряйте на него.
     Натиснете на линка ако искате да се откажете резервацията:
-    $delete_link";
-    mail($address,$subject,$message);
+    $link";
+    
+    $mail->setFrom('nbuHallReservation@gmail.com', "Don't reply");
+    $mail->addAddress($address);
+    $mail->Subject = $subject;
+    $mail->Body =$message;
+    $mail->send();
 }
 
 # $end is not inclusive
