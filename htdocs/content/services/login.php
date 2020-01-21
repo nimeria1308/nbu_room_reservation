@@ -7,7 +7,7 @@ function backend_log_in_ok($username, $password)
           $sql = "SELECT * FROM admin WHERE name = ? ;";
           $stmt = mysqli_stmt_init($db);
           if(!mysqli_stmt_prepare($stmt,$sql)){
-                exit();
+                return false;
           }
           else{
              
@@ -22,7 +22,6 @@ function backend_log_in_ok($username, $password)
                 exit();
                   }
                   else if($pwd_check == true){
-                      header("Location: ./index.php?loginSuccess!");
                       return true;
                   }
               }
