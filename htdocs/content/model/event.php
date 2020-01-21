@@ -23,8 +23,23 @@
 # * start/end are DateTime in the local zone
 function update_calendar_event($event)
 {
+    require_once "datebase.php";
+    $find_event=$db->query("SELECT * FROM events WHERE event_id=$event[id]");
+    if(mysqli_num_rows($find_event)!=0){
+        $find_time_slot=$db->query("SELECT event_id FROM events WHERE $event[new][start]>=start_date AND $event[new][end]<=end_date");
+        if(mysqli_num_rows($db)==0){
+            $update=$db->query("UPDATE events SET title='$event[title]',description='$events[description]',start_date=$event[new][start],end_date=$event[new][end] WHERE events_id=$event[id]");
+            if(mysqli_affected_rows($update) >0){
+                return true;
+            }else{
+                return false;
+            }
+        }else{
+            return false;
+        }
+    }
     // error_log(print_r($event, true));
-    return true;
+    return false;
 }
 
 function load_requests_button(){
@@ -37,7 +52,7 @@ function load_requests_button(){
     if(mysqli_num_rows($result) > 0){
         $count = 0;
         while($row = mysqli_fetch_assoc($result)){
-            $data[$count] = $row;
+            $data[] = $row;
             $count++;
         }
     }
@@ -79,17 +94,21 @@ function requests($id,$start,$end){
     else{
         mysqli_stmt_bind_param($stmt,"i", $id);
         mysqli_stmt_execute($stmt);
-         $data = array();
-         $count = 0;
-         $result = mysqli_stmt_get_result($stmt);
+        $data = array();
+        $count = 0;
+        $result = mysqli_stmt_get_result($stmt);
         while(($row = mysqli_fetch_assoc($result))){
             $new_start =  new DateTime($row['start_date']);
             $new_end = new DateTime($row['end_date']);
             if($new_start >= $start && $new_end <= $end){
-            $data[] = ["id" => $row['type_id'], "title" => $row['title'], "start" => $new_start, "end" => $new_end];
-            $count++;
+                $data[]=[    
+                    "id" => $row['type_id'],
+                    "title" => $row['title'],
+                    "start" => $new_start,
+                    "end" => $new_end];
+                $count++;
+                }
             }
-        }
         }
         return $data;
     }
@@ -136,5 +155,6 @@ function read_calendar_events($id, $start, $end)
     $events = array();
     $events[] = requests($id,$start,$end);
    
-    return $events[$id];
+    return $events[0];
 }
+
