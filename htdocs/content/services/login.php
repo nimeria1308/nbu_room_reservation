@@ -2,7 +2,35 @@
 
 function backend_log_in_ok($username, $password)
 {
-    return $username == "admin" and $password == "admin";
+    require 'database.php';
+     
+          $sql = "SELECT * FROM admin WHERE name = ? ;";
+          $stmt = mysqli_stmt_init($db);
+          if(!mysqli_stmt_prepare($stmt,$sql)){
+                exit();
+          }
+          else{
+             
+              mysqli_stmt_bind_param($stmt,"s",$username);
+              mysqli_stmt_execute($stmt);
+              $result = mysqli_stmt_get_result($stmt);
+
+              if($row = mysqli_fetch_assoc($result)){
+                  $pwd_check = password_verify($password, $row['password']);
+                  if($pwd_check == false){
+                      return false;
+                exit();
+                  }
+                  else if($pwd_check == true){
+                      header("Location: ./index.php?loginSuccess!");
+                      return true;
+                  }
+              }
+              else{
+                  return false;
+                  
+              }
+          }
 }
 
 $username = "";
