@@ -1,4 +1,7 @@
 <?php
+    use PHPMailer\PHPMailer\PHPMailer;
+    use PHPMailer\PHPMailer\Exception;
+
 # returns true on successfully updating the event
 # otherwise false, which will revert it in the frontend
 # $event is as follows
@@ -87,14 +90,12 @@ function requests($id,$start,$end){
             $count++;
             }
         }
+        }
+        return $data;
     }
-    return $data;
     
 function send_email($address,$event_id){
     require 'vendor/autoload.php'; 
-
-    use PHPMailer\PHPMailer\PHPMailer;
-    use PHPMailer\PHPMailer\Exception;
     
     require 'PHPMailer/src/Exception.php';
     require 'PHPMailer/src/PHPMailer.php';
