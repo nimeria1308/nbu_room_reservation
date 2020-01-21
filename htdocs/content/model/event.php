@@ -96,9 +96,9 @@ function send_email($address,$event_id){
     use PHPMailer\PHPMailer\PHPMailer;
     use PHPMailer\PHPMailer\Exception;
     
-    require '../PHP/PHPMailer/src/Exception.php';
-    require '../PHP/PHPMailer/src/PHPMailer.php';
-    require '../PHP/PHPMailer/src/SMTP.php';
+    require 'PHPMailer/src/Exception.php';
+    require 'PHPMailer/src/PHPMailer.php';
+    require 'PHPMailer/src/SMTP.php';
 
     $mail = new PHPMailer(true);
     $mail->isSMTP();
