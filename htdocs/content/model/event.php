@@ -24,11 +24,14 @@
 function update_calendar_event($event)
 {
     require_once "datebase.php";
-    $find_event=$db->query("SELECT * FROM events WHERE event_id=$event[id]");
+    //Check for existing event
+    $find_event=$db->query("SELECT * FROM events WHERE type_id=$event[id] AND start_date=$event[old][start] AND end_date=$event[old][end]");
     if(mysqli_num_rows($find_event)!=0){
+        //Check for free time slot
         $find_time_slot=$db->query("SELECT event_id FROM events WHERE $event[new][start]>=start_date AND $event[new][end]<=end_date");
         if(mysqli_num_rows($db)==0){
-            $update=$db->query("UPDATE events SET title='$event[title]',description='$events[description]',start_date=$event[new][start],end_date=$event[new][end] WHERE events_id=$event[id]");
+            //Update the event if timeslot if free
+            $update=$db->query("UPDATE events SET title='$event[title]',description='$events[description]',start_date=$event[new][start],end_date=$event[new][end] WHERE type_id=$event[id] AND start_date=$event[old][start] AND end_date=$event[old][end]");
             if(mysqli_affected_rows($update) >0){
                 return true;
             }else{
@@ -114,12 +117,14 @@ function requests($id,$start,$end){
     }
     
 function send_email($address,$event_id){
+    //Load required files from PHPMailer library
     require 'vendor/autoload.php'; 
     
     require 'PHPMailer/src/Exception.php';
     require 'PHPMailer/src/PHPMailer.php';
     require 'PHPMailer/src/SMTP.php';
 
+    //Settings for sending email
     $mail = new PHPMailer(true);
     $mail->isSMTP();
     $mail->CharSet = 'UTF-8';
@@ -128,7 +133,8 @@ function send_email($address,$event_id){
     $mail->SMTPSecure = "tls";
     $mail->Mailer = "smtp";
     $mail->Host= "smtp.gmail.com";
-    $mail->SMTPAuth   = true;                                   
+    $mail->SMTPAuth   = true;
+    //Username and password for the project's email                                   
     $mail->Username   = 'nbuHallReservation';                     
     $mail->Password   = '5bd4fr3VitaN';                               
     $mail->SMTPSecure = 'ssl';         
