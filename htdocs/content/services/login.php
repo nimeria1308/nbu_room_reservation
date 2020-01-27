@@ -2,7 +2,7 @@
 
 function backend_log_in_ok($username, $password)
 {
-    require 'database.php';
+    require 'model/database.php';
      
           $sql = "SELECT * FROM admin WHERE name = ? ;";
           $stmt = mysqli_stmt_init($db);
