@@ -13,7 +13,7 @@ function calendar_ready_callback(calendar) {
         },
         {
             // Weekends
-            daysOfWeek: [6, 0], // Thursday, Friday
+            daysOfWeek: [6, 0],
             startTime: '09:00',
             endTime: '17:30'
         }

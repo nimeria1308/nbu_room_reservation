@@ -5,9 +5,6 @@ function unset_all_cookies() {
     cookie.removeSpecific(cookie_names, { 'path': '/' });
 }
 
-console.log(cookie.all());
-// unset_all_cookies();
-
 document.addEventListener('DOMContentLoaded', function () {
     var form = $("#login_form");
 
@@ -36,7 +33,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 document.addEventListener('DOMContentLoaded', function () {
     var logout = $("#logout");
-    console.log(logout);
 
     // submitting to login without credentials will log us out.
     var url = '/login';
