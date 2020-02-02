@@ -11,11 +11,15 @@ echo $room['title'];
 if (isset($_GET['start']) and isset ($_GET['end'])) {
     $event_start = DateTime::createFromFormat(DateTime::ISO8601, $_GET['start']);
     $event_end = DateTime::createFromFormat(DateTime::ISO8601, $_GET['end']);
-    error_log($event_start->format(DateTime::ISO8601));
-    error_log($event_end->format(DateTime::ISO8601));
+} else {
+    $event_start = new DateTime();
+    $event_end = clone $event_start;
+    $event_end->modify('+1 hour');
 }
 
 # Room view
 $t = new MyView('event.phtml');
 $t->room = $room;
+$t->event_start = $event_start;
+$t->event_end = $event_end;
 $t->render();
