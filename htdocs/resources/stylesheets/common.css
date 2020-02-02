@@ -26,7 +26,6 @@ body {
 }
 
 body {
-    /* height: 0; */ /* IE hack to make flex work, but ruins the background effect */
     min-height: 100vh;
 	display: flex;
 	flex-direction: column;
@@ -34,6 +33,14 @@ body {
 
 #content {
     flex: 1;
+}
+
+/* IE10+ specific */
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+    /* Flex does not work too well on IE */
+    body {
+        display: block !important;
+    }
 }
 
 body>div {
