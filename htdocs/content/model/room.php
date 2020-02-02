@@ -57,7 +57,7 @@ function get_room($id) {
             $row['room_id'] => [
                 "title" => $row['room_name'],
                 "img_url" => $row['image_path'],
-                "color" => $row['image_path'],
+                "color" => $row['color'],
             ]
         ];
         
