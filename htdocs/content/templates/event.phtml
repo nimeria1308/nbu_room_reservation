@@ -1,4 +1,4 @@
-<form style="max-width:60%;" id="new_event_form" action="/content/services/new_event.php" method="post">
+<form style="max-width:80%;" id="new_event_form" action="/content/services/new_event.php" method="post">
     <h2 class="mb-3">
         Заявка за ползване на <?= $this->room['title'] ?> в библиотеката на НБУ
     </h2>
@@ -26,6 +26,14 @@
     </p>
     <p>
         Библиотеката не поема ангажимент за потвърждение на проведени часове в залата.
+    </p>
+    <p>
+        <label for="date">Дата</label>
+        <input type="date" min="<?= $this->min_date ?>" value="<?= $this->date ?>" name="date" />
+        <label for="start_time">Начален час</label>
+        <input type="time" value="<?= $this->start_time ?>" name="start_time" />
+        <label for="end_time">Краен час</label>
+        <input type="time" value="<?= $this->end_time ?>" name="end_time" />
     </p>
     <p class="mb-0 text-right">
         <input type="submit" class="btn btn-primary" value="Създай" />
