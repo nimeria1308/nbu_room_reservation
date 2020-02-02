@@ -163,4 +163,35 @@ function read_calendar_events($id, $start, $end)
    
     return $events[0];
 }
+//delete events binded to rooms in order to free room(cancel requests)
+function delete_reservation($event_id, $room_id){
+    require 'database.php';
+    $sql = "DELETE * FROM events WHERE event_id=$event_id AND room_id_num = $room_id;";
+    $stmt = mysqli_stmt_init($db);
+    if(!mysqli_stmt_prepare($stmt, $sql)){
+        //TO DO return some error;
+    }
+
+    else{
+        mysqli_stmt_bind_param($stmt,"i", $id);
+        mysqli_stmt_execute($stmt);
+        $data = array();
+        $count = 0;
+        $result = mysqli_stmt_get_result($stmt);
+        while(($row = mysqli_fetch_assoc($result))){
+            $new_start =  new DateTime($row['start_date']);
+            $new_end = new DateTime($row['end_date']);
+            if($new_start >= $start && $new_end <= $end)
+{
+                $data[]=[   
+                    "id" => $row['type_id'],
+                    "title" => $row['title'],
+                    "start" => $new_start,
+                    "end" => $new_end];
+                $count++;
+                }
+            }
+        }
+        return $data;
+    }
 
