@@ -7,6 +7,7 @@ call config.cmd
 
 rem init database if not there
 %XAMPP_DIR%/php/php setup_database.php
+if %errorlevel% neq 0 exit /b %errorlevel%
 
 rem compile external dependencies
 echo Compiling external dependencies
