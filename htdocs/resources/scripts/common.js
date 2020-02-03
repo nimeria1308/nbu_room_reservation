@@ -48,3 +48,14 @@ document.addEventListener('DOMContentLoaded', function () {
             });
     });
 });
+
+function open_ajax_popup(url) {
+    $.fancybox.open({
+        'src': url,
+        'type': 'ajax'
+    });
+}
+
+function close_popup() {
+    $.fancybox.getInstance().close();
+}

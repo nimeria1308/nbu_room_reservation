@@ -19,22 +19,6 @@ function calendar_ready_callback(calendar) {
         }
     ];
 
-    function new_event(info) {
-        if (info) {
-            var instance = $.fancybox.open({
-                'src': '/content/pages/new_event.php?room_id=' + room_id
-                    + '&start=' + encodeURIComponent(info.startStr)
-                    + '&end=' + encodeURIComponent(info.endStr),
-                'type': 'ajax'
-            });
-        } else {
-            var instance = $.fancybox.open({
-                'src': '/content/pages/new_event.php?room_id=' + room_id,
-                'type': 'ajax'
-            });
-        }
-    }
-
     var buttons = {
         'new_reservation': {
             'text': {
@@ -42,7 +26,7 @@ function calendar_ready_callback(calendar) {
                 'en': 'new booking'
             }[locale],
             'click': function () {
-                new_event();
+                open_new_event();
             }
         }
     };
@@ -103,7 +87,7 @@ function calendar_ready_callback(calendar) {
     });
 
     calendar.on('select', function (info) {
-        new_event(info);
+        open_new_event(info);
         calendar.unselect();
     });
 

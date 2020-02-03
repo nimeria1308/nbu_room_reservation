@@ -1,4 +1,4 @@
-<form style="max-width:80%;" id="new_event_form" action="/content/services/new_event.php" method="post">
+<form style="max-width:80%;" id="event_form" method="dialog" class="light">
     <h2 class="mb-3">
         Заявка за ползване на <?= $this->room['title'] ?> в библиотеката на НБУ
     </h2>
@@ -28,14 +28,83 @@
         Библиотеката не поема ангажимент за потвърждение на проведени часове в залата.
     </p>
     <p>
-        <label for="date">Дата</label>
-        <input type="date" min="<?= $this->min_date ?>" value="<?= $this->date ?>" name="date" />
-        <label for="start_time">Начален час</label>
-        <input type="time" value="<?= $this->start_time ?>" name="start_time" />
-        <label for="end_time">Краен час</label>
-        <input type="time" value="<?= $this->end_time ?>" name="end_time" />
+        <label for="date">Дата:</label>
+        <input class="form-control" type="date" min="<?= $this->min_date ?>" value="<?= $this->date ?>" name="date" id="date" />
     </p>
+    <p>
+        <label for="start_time">Начален час:</label>
+        <input class="form-control" type="time" value="<?= $this->start_time ?>" name="start_time" />
+    </p>
+    <p>
+        <label for="end_time">Краен час:</label>
+        <input class="form-control" type="time" value="<?= $this->end_time ?>" name="end_time" />
+    </p>
+    <p>
+        Залата ще бъде ползвана от <span class="smalltext">(Моля попълнете департамент или друг организатор)</span>:
+        <input class="form-control" type="text" name="room_user" />
+    </p>
+    <p>
+        <label for="name">Наименование на събитието:</label>
+        <input class="form-control" type="text" name="name" />
+    </p>
+    <p>
+       <label for="multimedia">Ще използвам мултимедийна и озвучителна техника:</label>
+       <select name="multimedia" class="form-control">
+        <option value="yes">Да</option>
+        <option value="no">Не</option>
+       </select>
+    </p>
+    <p>
+        Декларирам, че при използването на залата се задължавам:
+    </p>
+    <!-- TODO: The following need to be passed from the backend for each room -->
+    <p>
+        <input type="checkbox" name="decl_1" />
+        1. Да уведомя Домакина на НБУ (8110676, в. 2106), за подреждането на залата и броя на необходимите места, един ден предварително.
+    </p>
+    <p>
+        <input type="checkbox" name="decl_2" />
+        2. Да се погрижа участниците да спазват установения от библиотека ред и да опазват библиотечното имущество.
+    </p>
+    <p>
+        <input type="checkbox" name="decl_3" />
+        3. След използване на залата, тя да бъде приведена във вида, в който е заварена.
+    </p>
+    <p>
+        <input type="checkbox" name="decl_4" />
+        4. При повреди нося отговорност за нанесените вреди.
+    </p>
+    <p>
+        <label for="person">Лице за контакт:</label>
+        <input class="form-control" type="text" name="person" />
+    </p>
+    <p>
+        <label for="phone">Телефон за връзка:</label>
+        <input class="form-control" type="tel" name="phone" pattern="\+?[0-9]*" />
+    </p>
+    <p>
+        <label for="email">Електронна поща:</label>
+        <input class="form-control" type="email" name="email" />
+    </p>
+    <p>
+        <label for="other">Допълнителна информация:</label>
+        <input class="form-control" type="text" name="other" />
+    </p>
+
+    <p>
+        <input type="buttom" class="btn" value="Повтаряне" onclick="open_event_repeat();" />
+    </p>
+    <!-- hidden controls passed from repeat popup -->
+    <input type="text" name="repeat" value="never" />
+    <input type="text" name="weekly_repeat" />
+    <input type="text" name="repeat_day" />
+    <input type="text" name="repeat_start" />
+    <input type="text" name="repeat_end" />
+    <input type="text" name="repeat_end_count" />
+    <input type="text" name="repeat_end_date" />
+
     <p class="mb-0 text-right">
+        <input type="buttom" class="btn" value="Отказ" onClick="close_popup();" />
         <input type="submit" class="btn btn-primary" value="Създай" />
     </p>
 </form>

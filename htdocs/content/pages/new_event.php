@@ -19,7 +19,7 @@ if (isset($_GET['start']) and isset ($_GET['end'])) {
     $event_end->modify('+1 hour');
 }
 
-# Room view
+# new event view
 $t = new MyView('event.phtml');
 $t->room = $room;
 $t->min_date = $now->format("Y-m-d");

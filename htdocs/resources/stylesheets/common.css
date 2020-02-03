@@ -106,3 +106,11 @@ html {
       -o-animation: fadein 1s;      /* Opera < 12.1 */
          animation: fadein 1s;
 }
+
+.smalltext {
+    font-size: 80%;
+}
+
+.btn {
+    background-color: lightgray;
+}

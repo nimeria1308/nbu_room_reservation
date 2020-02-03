@@ -19,6 +19,7 @@ $t->stylesheets = [
 ];
 
 $t->scripts = [
+    'event.js',
     'calendar.js',
     'external/calendar.js',
 ];
