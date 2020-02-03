@@ -1,1 +1,86 @@
-events
+<table>
+    <tr>
+        <th>
+            Номер
+        </th>
+        <th>
+            Клеймо за време
+        </th>
+        <th>
+            Желая да ползвам <?= $this->room['title'] ?> на дата
+        </th>
+        <th>
+            Начален час
+        </th>
+        <th>
+            Краен час
+        </th>
+        <th>
+            Залата ще бъде използвана от
+        </th>
+        <th>
+            Наименование на събитието
+        </th>
+        <th>
+            Ще използвам мултимедиен проектор и екран
+        </th>
+        <th>
+            Лице за контакт
+        </th>
+        <th>
+            Телефон
+        </th>
+        <th>
+            Имейл
+        </th>
+        <th>
+            Допълнителна информация
+        </th>
+        <th>
+            Повтаряемост
+        </th>
+    </tr>
+    <?php foreach ($this->events as $e) { ?>
+    <tr>
+        <td>
+            <?= $e['id'] ?>
+        </td>
+        <td>
+            <!-- TODO: needed from backend -->
+        </td>
+        <td>
+            <?= $e['start']->format("d/m/Y") ?>
+        </td>
+        <td>
+            <?= $e['start']->format("H:s") ?>
+        </td>
+        <td>
+            <?= $e['end']->format("H:s") ?>
+        </td>
+        <td>
+            <!-- TODO: needed from backend -->
+        </td>
+        <td>
+            <?= $e['title'] ?>
+        </td>
+        <td>
+            <!-- TODO: needed from backend -->
+        </td>
+        <td>
+            <!-- TODO: needed from backend -->
+        </td>
+        <td>
+            <!-- TODO: needed from backend -->
+        </td>
+        <td>
+            <!-- TODO: needed from backend -->
+        </td>
+        <td>
+            <!-- TODO: needed from backend -->
+        </td>
+        <td>
+            <!-- TODO: needed from backend -->
+        </td>
+    </tr>
+    <?php } ?>
+</table>

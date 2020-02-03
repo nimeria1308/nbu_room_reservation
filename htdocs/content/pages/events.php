@@ -14,11 +14,18 @@ $t->menu = [
         'title' => $room['title'],
     ]
 ];
-$t->title = "Заявки";
+$t->title = "Заявки за ползване на $room[title]";
 
 $t->render();
 
+# FIXME
+$min_date = date('Y', 0);
+$max_date = new DateTime("01/01/30");
+$events = requests($room_id, $min_date, $max_date);
+
 $t = new MyView("events.phtml");
+$t->room = $room;
+$t->events = $events;
 $t->render();
 
 $t = new MyView('footer.phtml');
