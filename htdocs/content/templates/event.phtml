@@ -1,4 +1,4 @@
-<form style="max-width:80%;" id="event_form" method="dialog" class="light">
+<form style="max-width:80%;" id="event_form" method="dialog" class="light" onsubmit="on_event_submit();">
     <h2 class="mb-3">
         Заявка за ползване на <?= $this->room['title'] ?> в библиотеката на НБУ
     </h2>
@@ -41,7 +41,7 @@
     </p>
     <p>
         Залата ще бъде ползвана от <span class="smalltext">(Моля попълнете департамент или друг организатор)</span>:
-        <input class="form-control" type="text" name="room_user" />
+        <input class="form-control" type="text" name="organizer" />
     </p>
     <p>
         <label for="name">Наименование на събитието:</label>
@@ -58,25 +58,26 @@
         Декларирам, че при използването на залата се задължавам:
     </p>
     <!-- TODO: The following need to be passed from the backend for each room -->
+    <input type="hidden" name="terms_size" value="4" />
     <p>
-        <input type="checkbox" name="decl_1" />
+        <input type="checkbox" name="terms" value="1" />
         1. Да уведомя Домакина на НБУ (8110676, в. 2106), за подреждането на залата и броя на необходимите места, един ден предварително.
     </p>
     <p>
-        <input type="checkbox" name="decl_2" />
+        <input type="checkbox" name="terms" value="2" />
         2. Да се погрижа участниците да спазват установения от библиотека ред и да опазват библиотечното имущество.
     </p>
     <p>
-        <input type="checkbox" name="decl_3" />
+        <input type="checkbox" name="terms" value="3" />
         3. След използване на залата, тя да бъде приведена във вида, в който е заварена.
     </p>
     <p>
-        <input type="checkbox" name="decl_4" />
+        <input type="checkbox" name="terms" value="4" />
         4. При повреди нося отговорност за нанесените вреди.
     </p>
     <p>
-        <label for="person">Лице за контакт:</label>
-        <input class="form-control" type="text" name="person" />
+        <label for="user">Лице за контакт:</label>
+        <input class="form-control" type="text" name="user" />
     </p>
     <p>
         <label for="phone">Телефон за връзка:</label>
@@ -88,20 +89,58 @@
     </p>
     <p>
         <label for="other">Допълнителна информация:</label>
-        <input class="form-control" type="text" name="other" />
+        <textarea class="form-control" name="other"></textarea>
     </p>
 
+    <h4 class="mb-3">
+        Повтаряне на събитието
+    </h4>
     <p>
-        <input type="buttom" class="btn" value="Повтаряне" onclick="open_event_repeat();" />
+        <label for="repeat">Да се повтаря:</label>
+        <select name="repeat" class="form-control" onchange="on_repeat_change(this);">
+            <option value="never">Никога</option>
+            <option value="weekly">Седмично</option>
+            <option value="monthly">Месечно</option>
+        </select>
     </p>
-    <!-- hidden controls passed from repeat popup -->
-    <input type="text" name="repeat" value="never" />
-    <input type="text" name="weekly_repeat" />
-    <input type="text" name="repeat_day" />
-    <input type="text" name="repeat_start" />
-    <input type="text" name="repeat_end" />
-    <input type="text" name="repeat_end_count" />
-    <input type="text" name="repeat_end_date" />
+    <div id="repeat_details" style="display: none;">
+        <p id="weekly_repeat">
+            <label for="weekly_repeat">На колко седмици да се повтаря:</label>
+            <input type="number" min="1" max="4" value="1" name="weekly_repeat" class="form-control" />
+        </p>
+        <p>
+            Дни, в които да се повтаря:<br />
+            <input type="checkbox" name="repeat_day" value="mon" />Пн
+            <input type="checkbox" name="repeat_day" value="tue" />Вт
+            <input type="checkbox" name="repeat_day" value="wed" />Ср
+            <input type="checkbox" name="repeat_day" value="thu" />Чт
+            <input type="checkbox" name="repeat_day" value="fri" />Пт
+            <input type="checkbox" name="repeat_day" value="sat" />Сб
+            <input type="checkbox" name="repeat_day" value="sun" />Нд
+        </p>
+        <p>
+            <label for="repeat_start">Начало:</label>
+            <input class="form-control" type="date" min="<?= $this->min_date ?>" value="<?= $this->date ?>" name="repeat_start" />
+        </p>
+        <p>
+            <label for="repeat_end">Край:</label>
+            <select name="repeat_end" class="form-control" onchange="on_repeat_end_change(this);">
+                <option value="never">Никога</option>
+                <option value="count">След брой провеждания</option>
+                <option value="date">На дата</option>
+            </select>
+        </p>
+        <p id="repeat_end_count" style="display: none;">
+            <label for="repeat_end_count">След брой провеждания:</label>
+            <input type="number" min="1" value="1" name="repeat_end_count" class="form-control" />
+        </p>
+        <p id="repeat_end_date" style="display: none;">
+            <label for="repeat_end_date">Крайна дата:</label>
+            <input class="form-control" type="date" min="<?= $this->min_date ?>" value="<?= $this->date ?>" name="repeat_end_date" />
+        </p>
+    </div>
+
+    <input type="hidden" name="room_id" value=" <?= $this->room_id ?>" />
 
     <p class="mb-0 text-right">
         <input type="buttom" class="btn" value="Отказ" onClick="close_popup();" />

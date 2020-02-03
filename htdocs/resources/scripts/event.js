@@ -8,14 +8,6 @@ function open_new_event(info) {
     open_ajax_popup(new_event_url);
 }
 
-function open_event_repeat() {
-    var event_date = $('#date')[0];
-    var repeat_event_url = '/event_repeat?'
-            + 'repeat_start=' + encodeURIComponent(event_date.value)
-            + '&min_date=' + encodeURIComponent(event_date.min);
-    open_ajax_popup(repeat_event_url);
-}
-
 function on_repeat_change(el) {
     var repeat_value = el.value;
     var repeat_details = $('#repeat_details');
@@ -69,30 +61,88 @@ function on_repeat_end_change(r) {
     }
 }
 
-function submit_repeat() {
-    // collect all values
-    var repeat_type = $('#repeat_form select[name=repeat]').val();
-    var weekly_repeat = $('#repeat_form input[name=weekly_repeat]').val();
-    var repeat_start = $('#repeat_form input[name=repeat_start]').val();
-    var repeat_end = $('#repeat_form select[name=repeat_end]').val();
-    var repeat_end_count = $('#repeat_form input[name=repeat_end_count]').val();
-    var repeat_end_date = $('#repeat_form input[name=repeat_end_date]').val();
+function validate_event_form(elements) {
+    // check that all terms are checked
+    var terms_size = parseInt(elements['terms_size']);
 
-    // collect the days into an array
-    var repeat_day = [];
-    $("#repeat_form input:checkbox[name=repeat_day]:checked").each(function(){
-        repeat_day.push($(this).val());
+    var terms = [ ]; // may be 0
+    if ('terms' in elements) {
+        terms = elements['terms'].split(' ');
+    }
+
+    if (terms.length != terms_size) {
+        return "Моля, изберете всички полета за съгласие за употреба.";
+    }
+
+    function check_empty(name) {
+        return !elements[name].trim();
+    }
+
+    if (check_empty('organizer')) {
+        return "Моля, въведете организатор";
+    }
+
+    if (check_empty('name')) {
+        return "Моля, въведете име на събитието";
+    }
+
+    if (check_empty('user')) {
+        return "Моля, въведете лице за контакт";
+    }
+
+    if (check_empty('phone')) {
+        return "Моля, въведете телефон";
+    }
+
+    if (check_empty('email')) {
+        return "Моля, въведете електронна поща";
+    }
+
+    return true;
+}
+
+function on_event_submit() {
+    // get the form data
+    var form_elements = $('#event_form').serializeArray();
+
+    // now prepare the elements for the AJAX post
+    var post_data = { };
+    form_elements.forEach(function(item) {
+        if (item['name'] in post_data) {
+            // append
+            post_data[item['name']] += ' ' + item['value'];
+        } else {
+            post_data[item['name']] = item['value'];
+        }
     });
 
-    // TODO: validate the form
+    // validate the form
+    var validate_result = validate_event_form(post_data);
+    if (validate_result !== true) {
+        // show validation failure and bail out
+        $.fancybox.open('<h2>Невалидни данни</h2><p>' + validate_result + '</p>');
+        return;
+    }
 
-    // now fill in the data into the original form
-    $('#event_form input[name=repeat]').val(repeat_type);
-    $('#event_form input[name=weekly_repeat]').val(weekly_repeat);
-    $('#event_form input[name=repeat_day]').val(repeat_day.join(' '));
-    $('#event_form input[name=repeat_start]').val(repeat_start);
-    $('#event_form input[name=repeat_end]').val(repeat_end);
-    $('#event_form input[name=repeat_end_count]').val(repeat_end_count);
-    $('#event_form input[name=repeat_end_date]').val(repeat_end_date);
-    close_popup();
+    function request_failure() {
+        $.fancybox.open('Сървърна грешка');
+    }
+
+    function bad_input_data(data) {
+        $.fancybox.open('<h2>Грешка</h2><p>' + data.error + '</p>');
+    }
+
+    $.post("/content/services/new_event.php", post_data)
+        .done(function (data) {
+            if (data.status != "ok") {
+                bad_input_data(data);
+                return;
+            }
+
+            // update the events
+            global_calendar.refetchEvents();
+
+            close_popup();
+        })
+        .fail(request_failure);
 }
