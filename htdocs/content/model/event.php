@@ -23,7 +23,7 @@
 # * start/end are DateTime in the local zone
 function update_calendar_event($event)
 {
-    require_once "datebase.php";
+    require_once "database.php";
     //Check for existing event
     $find_event=$db->query("SELECT * FROM events WHERE type_id=$event[id] AND start_date=$event[old][start] AND end_date=$event[old][end]");
     if(mysqli_num_rows($find_event)!=0){
