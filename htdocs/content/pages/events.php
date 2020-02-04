@@ -4,6 +4,11 @@ require_once('libraries/isadmin.php');
 require_once('model/room.php');
 require_once('model/event.php');
 
+if (!is_admin()) {
+    header("Location: /");
+    return;
+}
+
 $room_id = $_GET['room_id'];
 $room = get_room($room_id);
 
