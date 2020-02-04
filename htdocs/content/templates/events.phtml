@@ -1,86 +1,104 @@
-<table>
-    <tr>
-        <th>
-            Номер
-        </th>
-        <th>
-            Клеймо за време
-        </th>
-        <th>
-            Желая да ползвам <?= $this->room['title'] ?> на дата
-        </th>
-        <th>
-            Начален час
-        </th>
-        <th>
-            Краен час
-        </th>
-        <th>
-            Залата ще бъде използвана от
-        </th>
-        <th>
-            Наименование на събитието
-        </th>
-        <th>
-            Ще използвам мултимедиен проектор и екран
-        </th>
-        <th>
-            Лице за контакт
-        </th>
-        <th>
-            Телефон
-        </th>
-        <th>
-            Имейл
-        </th>
-        <th>
-            Допълнителна информация
-        </th>
-        <th>
-            Повтаряемост
-        </th>
-    </tr>
-    <?php foreach ($this->events as $e) { ?>
-    <tr>
-        <td>
-            <?= $e['id'] ?>
-        </td>
-        <td>
-            <!-- TODO: needed from backend -->
-        </td>
-        <td>
-            <?= $e['start']->format("d/m/Y") ?>
-        </td>
-        <td>
-            <?= $e['start']->format("H:s") ?>
-        </td>
-        <td>
-            <?= $e['end']->format("H:s") ?>
-        </td>
-        <td>
-            <!-- TODO: needed from backend -->
-        </td>
-        <td>
-            <?= $e['title'] ?>
-        </td>
-        <td>
-            <!-- TODO: needed from backend -->
-        </td>
-        <td>
-            <!-- TODO: needed from backend -->
-        </td>
-        <td>
-            <!-- TODO: needed from backend -->
-        </td>
-        <td>
-            <!-- TODO: needed from backend -->
-        </td>
-        <td>
-            <!-- TODO: needed from backend -->
-        </td>
-        <td>
-            <!-- TODO: needed from backend -->
-        </td>
-    </tr>
-    <?php } ?>
-</table>
+<form method="post">
+    <table>
+        <tr>
+            <th>
+                <!-- selector -->
+            </th>
+            <th>
+                Номер
+            </th>
+            <th>
+                Клеймо
+            </th>
+            <th>
+                Дата
+            </th>
+            <th>
+                Начален час
+            </th>
+            <th>
+                Краен час
+            </th>
+            <th>
+                Организатор
+            </th>
+            <th>
+                Наименование
+            </th>
+            <th>
+                Мултимедия
+            </th>
+            <th>
+                Лице за контакт
+            </th>
+            <th>
+                Телефон
+            </th>
+            <th>
+                Имейл
+            </th>
+            <th>
+                Допълнителна информация
+            </th>
+            <th>
+                Повтаряемост
+            </th>
+            <th>
+                Действия
+            </th>
+        </tr>
+        <?php foreach ($this->events as $e) { ?>
+            <tr>
+                <td>
+                    <input type="checkbox" name="event" value="<?= $e['id'] ?>" onchange="select_event(this)"></checkbox>
+                </td>
+                <td>
+                    <?= $e['id'] ?>
+                </td>
+                <td>
+                    <!-- TODO: needed from backend -->
+                </td>
+                <td>
+                    <?= $e['start']->format("d/m/Y") ?>
+                </td>
+                <td>
+                    <?= $e['start']->format("H:s") ?>
+                </td>
+                <td>
+                    <?= $e['end']->format("H:s") ?>
+                </td>
+                <td>
+                    <!-- TODO: needed from backend -->
+                </td>
+                <td>
+                    <?= $e['title'] ?>
+                </td>
+                <td>
+                    <!-- TODO: needed from backend -->
+                </td>
+                <td>
+                    <!-- TODO: needed from backend -->
+                </td>
+                <td>
+                    <!-- TODO: needed from backend -->
+                </td>
+                <td>
+                    <!-- TODO: needed from backend -->
+                </td>
+                <td>
+                    <!-- TODO: needed from backend -->
+                </td>
+                <td>
+                    <!-- TODO: needed from backend -->
+                </td>
+                <td>
+                    <a>Разгледай</a>
+                    <a>Редактирай</a>
+                    <a>Изтрии</a>
+                </td>
+            </tr>
+        <?php } ?>
+    </table>
+    <input type="button" value="Принтирай" onclick="print();" />
+    <input type="button" value="Изтрий избраните" />
+</form>

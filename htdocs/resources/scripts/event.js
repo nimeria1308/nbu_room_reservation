@@ -98,3 +98,13 @@ function on_event_submit() {
         })
         .fail(request_failure);
 }
+
+function select_event(ch) {
+    var tr = $(ch).closest('tr');
+
+    if (ch.checked) {
+        tr.addClass('selected');
+    } else {
+        tr.removeClass('selected');
+    }
+}

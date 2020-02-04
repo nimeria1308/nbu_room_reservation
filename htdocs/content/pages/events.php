@@ -20,6 +20,15 @@ $t->menu = [
         'title' => $room['title'],
     ]
 ];
+
+$t->scripts = [
+    'event.js',
+];
+
+$t->stylesheets = [
+    'events.css',
+];
+
 $t->title = "Заявки за ползване на $room[title]";
 
 $t->render();

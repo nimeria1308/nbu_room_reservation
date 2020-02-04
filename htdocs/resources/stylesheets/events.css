@@ -1,0 +1,24 @@
+th {
+    border: 2px #333 solid;
+}
+
+td {
+    border: 1px #333 solid;
+}
+
+th, td {
+    padding: 0.4em;
+}
+
+table {
+    background-color: #AAA;
+    color: black;
+}
+
+table a, table a:visited, table a:hover {
+    color: black;
+}
+
+tr.selected {
+    background-color: rgb(146, 194, 241);
+}
