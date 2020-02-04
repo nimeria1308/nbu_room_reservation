@@ -61,46 +61,6 @@ function on_repeat_end_change(r) {
     }
 }
 
-function validate_event_form(elements) {
-    // check that all terms are checked
-    var terms_size = parseInt(elements['terms_size']);
-
-    var terms = [ ]; // may be 0
-    if ('terms' in elements) {
-        terms = elements['terms'].split(' ');
-    }
-
-    if (terms.length != terms_size) {
-        return "Моля, изберете всички полета за съгласие за употреба.";
-    }
-
-    function check_empty(name) {
-        return !elements[name].trim();
-    }
-
-    if (check_empty('organizer')) {
-        return "Моля, въведете организатор";
-    }
-
-    if (check_empty('name')) {
-        return "Моля, въведете име на събитието";
-    }
-
-    if (check_empty('user')) {
-        return "Моля, въведете лице за контакт";
-    }
-
-    if (check_empty('phone')) {
-        return "Моля, въведете телефон";
-    }
-
-    if (check_empty('email')) {
-        return "Моля, въведете електронна поща";
-    }
-
-    return true;
-}
-
 function on_event_submit() {
     // get the form data
     var form_elements = $('#event_form').serializeArray();
@@ -115,14 +75,6 @@ function on_event_submit() {
             post_data[item['name']] = item['value'];
         }
     });
-
-    // validate the form
-    var validate_result = validate_event_form(post_data);
-    if (validate_result !== true) {
-        // show validation failure and bail out
-        $.fancybox.open('<h2>Невалидни данни</h2><p>' + validate_result + '</p>');
-        return;
-    }
 
     function request_failure() {
         $.fancybox.open('Сървърна грешка');

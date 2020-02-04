@@ -28,64 +28,64 @@
         Библиотеката не поема ангажимент за потвърждение на проведени часове в залата.
     </p>
     <p>
-        <label for="date">Дата:</label>
-        <input class="form-control" type="date" min="<?= $this->min_date ?>" value="<?= $this->date ?>" name="date" id="date" />
+        <label for="date" class="required">Дата:</label>
+        <input class="form-control" type="date" min="<?= $this->min_date ?>" value="<?= $this->date ?>" name="date" id="date" required />
     </p>
     <p>
-        <label for="start_time">Начален час:</label>
-        <input class="form-control" type="time" value="<?= $this->start_time ?>" name="start_time" />
+        <label for="start_time" class="required">Начален час:</label>
+        <input class="form-control" type="time" value="<?= $this->start_time ?>" name="start_time" required />
     </p>
     <p>
-        <label for="end_time">Краен час:</label>
-        <input class="form-control" type="time" value="<?= $this->end_time ?>" name="end_time" />
+        <label for="end_time" class="required">Краен час:</label>
+        <input class="form-control" type="time" value="<?= $this->end_time ?>" name="end_time" required />
     </p>
     <p>
-        Залата ще бъде ползвана от <span class="smalltext">(Моля попълнете департамент или друг организатор)</span>:
-        <input class="form-control" type="text" name="organizer" />
+        <span class="required">Залата ще бъде ползвана от <span class="smalltext">(Моля попълнете департамент или друг организатор)</span>:</span>
+        <input class="form-control" type="text" name="organizer" required />
     </p>
     <p>
-        <label for="name">Наименование на събитието:</label>
-        <input class="form-control" type="text" name="name" />
+        <label for="name" class="required">Наименование на събитието:</label>
+        <input class="form-control" type="text" name="name" required />
     </p>
     <p>
-       <label for="multimedia">Ще използвам мултимедийна и озвучителна техника:</label>
-       <select name="multimedia" class="form-control">
+       <label for="multimedia" class="required">Ще използвам мултимедийна и озвучителна техника:</label>
+       <select name="multimedia" class="form-control" required>
         <option value="yes">Да</option>
         <option value="no">Не</option>
        </select>
     </p>
     <p>
-        Декларирам, че при използването на залата се задължавам:
+        <span class="required">Декларирам, че при използването на залата се задължавам:</span>
     </p>
     <!-- TODO: The following need to be passed from the backend for each room -->
     <input type="hidden" name="terms_size" value="4" />
     <p>
-        <input type="checkbox" name="terms" value="1" />
+        <input type="checkbox" name="terms" value="1" required />
         1. Да уведомя Домакина на НБУ (8110676, в. 2106), за подреждането на залата и броя на необходимите места, един ден предварително.
     </p>
     <p>
-        <input type="checkbox" name="terms" value="2" />
+        <input type="checkbox" name="terms" value="2" required />
         2. Да се погрижа участниците да спазват установения от библиотека ред и да опазват библиотечното имущество.
     </p>
     <p>
-        <input type="checkbox" name="terms" value="3" />
+        <input type="checkbox" name="terms" value="3" required />
         3. След използване на залата, тя да бъде приведена във вида, в който е заварена.
     </p>
     <p>
-        <input type="checkbox" name="terms" value="4" />
+        <input type="checkbox" name="terms" value="4" required />
         4. При повреди нося отговорност за нанесените вреди.
     </p>
     <p>
-        <label for="user">Лице за контакт:</label>
-        <input class="form-control" type="text" name="user" />
+        <label for="user" class="required">Лице за контакт:</label>
+        <input class="form-control" type="text" name="user" required />
     </p>
     <p>
-        <label for="phone">Телефон за връзка:</label>
-        <input class="form-control" type="tel" name="phone" pattern="\+?[0-9]*" />
+        <label for="phone" class="required">Телефон за връзка:</label>
+        <input class="form-control" type="tel" name="phone" pattern="\+?[0-9]*" required />
     </p>
     <p>
-        <label for="email">Електронна поща:</label>
-        <input class="form-control" type="email" name="email" />
+        <label for="email" class="required">Електронна поща:</label>
+        <input class="form-control" type="email" name="email" required />
     </p>
     <p>
         <label for="other">Допълнителна информация:</label>
@@ -96,7 +96,7 @@
         Повтаряне на събитието
     </h4>
     <p>
-        <label for="repeat">Да се повтаря:</label>
+        <label for="repeat" class="required">Да се повтаря:</label>
         <select name="repeat" class="form-control" onchange="on_repeat_change(this);">
             <option value="never">Никога</option>
             <option value="weekly">Седмично</option>
@@ -105,11 +105,11 @@
     </p>
     <div id="repeat_details" style="display: none;">
         <p id="weekly_repeat">
-            <label for="weekly_repeat">На колко седмици да се повтаря:</label>
+            <label for="weekly_repeat" class="required">На колко седмици да се повтаря:</label>
             <input type="number" min="1" max="4" value="1" name="weekly_repeat" class="form-control" />
         </p>
         <p>
-            Дни, в които да се повтаря:<br />
+            <span class="required">Дни, в които да се повтаря:</span><br />
             <input type="checkbox" name="repeat_day" value="mon" />Пн
             <input type="checkbox" name="repeat_day" value="tue" />Вт
             <input type="checkbox" name="repeat_day" value="wed" />Ср
@@ -119,11 +119,11 @@
             <input type="checkbox" name="repeat_day" value="sun" />Нд
         </p>
         <p>
-            <label for="repeat_start">Начало:</label>
+            <label for="repeat_start" class="required">Начало:</label>
             <input class="form-control" type="date" min="<?= $this->min_date ?>" value="<?= $this->date ?>" name="repeat_start" />
         </p>
         <p>
-            <label for="repeat_end">Край:</label>
+            <label for="repeat_end" class="required">Край:</label>
             <select name="repeat_end" class="form-control" onchange="on_repeat_end_change(this);">
                 <option value="never">Никога</option>
                 <option value="count">След брой провеждания</option>
@@ -131,11 +131,11 @@
             </select>
         </p>
         <p id="repeat_end_count" style="display: none;">
-            <label for="repeat_end_count">След брой провеждания:</label>
+            <label for="repeat_end_count" class="required">След брой провеждания:</label>
             <input type="number" min="1" value="1" name="repeat_end_count" class="form-control" />
         </p>
         <p id="repeat_end_date" style="display: none;">
-            <label for="repeat_end_date">Крайна дата:</label>
+            <label for="repeat_end_date" class="required">Крайна дата:</label>
             <input class="form-control" type="date" min="<?= $this->min_date ?>" value="<?= $this->date ?>" name="repeat_end_date" />
         </p>
     </div>

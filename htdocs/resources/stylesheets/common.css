@@ -114,3 +114,9 @@ html {
 .btn {
     background-color: lightgray;
 }
+
+/* put a red asterisk after required fields */
+.required:after {
+    content:" *";
+    color: red;
+  }
