@@ -97,8 +97,8 @@ CREATE TABLE `room` (
 
 INSERT INTO `room`
 (`room_id`, `room_name`,                  `image_path`,               `color`) VALUES
-(0,         'Семинарна зала',             'seminars-hall.jpg',        'dodgerblue'),
-(1,         'Зала за колективна работа',  'collective-work-hall.jpg', 'hotpink');
+(0,         'Семинарна зала',             'seminars-hall.jpg',        '#1E90FF'),
+(1,         'Зала за колективна работа',  'collective-work-hall.jpg', '#FF69B4');
 
 --
 -- Indexes for dumped tables
