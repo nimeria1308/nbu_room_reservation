@@ -2,9 +2,17 @@
 
 <?php
 foreach ($this->rooms as $room_id => $room) {
-    $t = new MyView("rooms_element.phtml", $room);
-    $t->room_id = $room_id;
-    $t->render();
+?>
+
+<div class="grid-element">
+    <a href="/rooms/<?= $room_id ?>">
+        <div class="icon shadowed">
+            <img src="/resources/images/<?= $room['img_url'] ?>" class="<?= $room['img_class'] ?>"/>
+        </div>
+        <div><?= $room['title'] ?></div>
+    </a>
+</div>
+<?php
 }
 ?>
 
