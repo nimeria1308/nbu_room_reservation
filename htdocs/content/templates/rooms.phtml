@@ -3,9 +3,8 @@
 <?php
 foreach ($this->rooms as $room_id => $room) {
 ?>
-
 <div class="grid-element">
-    <a href="/rooms/<?= $room_id ?>">
+    <a href="<?= ($room_id === 'new' ? 'javascript:open_ajax_popup(\'/rooms/new\');' : "/rooms/$room_id") ?>">
         <div class="icon shadowed">
             <img src="/resources/images/<?= $room['img_url'] ?>" class="<?= $room['img_class'] ?>"/>
         </div>

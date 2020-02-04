@@ -4,6 +4,7 @@ require_once('libraries/isadmin.php');
 require_once('model/room.php');
 require_once('model/event.php');
 
+// go back to home if not admin
 if (!is_admin()) {
     header("Location: /");
     return;
