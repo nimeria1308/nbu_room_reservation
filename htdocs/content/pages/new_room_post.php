@@ -11,7 +11,7 @@ if (!is_admin()) {
 // TODO: Create room from backend and return new room ID using
 // the following stuff from $_POST:
 // name
-// image_path
+// img_url
 // color
 $room_id = "";
 
