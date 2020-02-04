@@ -32,6 +32,7 @@ function calendar_ready_callback(calendar) {
     };
 
     if (is_admin) {
+        // add those buttons only if in admin mode
         buttons['events'] = {
             'text': {
                 'bg': 'заявки',
@@ -41,13 +42,23 @@ function calendar_ready_callback(calendar) {
                 location.href = '/rooms/' + room_id + '/events';
             }
         };
+
+        buttons['edit_room'] = {
+            'text': {
+                'bg': 'редактирай',
+                'en': 'edit'
+            }[locale],
+            'click': function () {
+                open_ajax_popup('/edit_room?room_id=' + room_id);
+            }
+        }
     }
 
     var options = {
         'locale': locale,
         'customButtons': buttons,
         'header': {
-            left: 'prev,next today new_reservation events',
+            left: 'prev,next today new_reservation edit_room events',
             center: 'title',
             right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
         },
