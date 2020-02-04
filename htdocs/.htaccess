@@ -17,7 +17,7 @@ RewriteRule ^rooms/(\d+)/?$ /content/pages/room.php?room_id=$1 [QSA]
 
 # Create a new room
 #   /rooms/new
-RewriteRule ^rooms/new/?$ /content/services/new_room.php
+RewriteRule ^rooms/new/?$ /content/pages/new_room.php
 
 # Edit a room:
 #   /rooms/0/edit
