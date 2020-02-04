@@ -5,13 +5,13 @@ require_once('model/room.php');
 $room_id = $_POST['room_id'];
 $room = get_room(intval($room_id));
 
-# TODO: validate data and create new event in backend`
+# TODO: validate data and create new event in backend + send an email from backend
 # input: the data is received in $_POST
 # output: set $status to true if OK
 #         set $status to false if failed, and fill in $error
 
 $status = true;
-$error = "some error in case of error";
+$error = "message explaining error";
 
 
 $result = ['status' => ($status ? 'ok' : 'fail')];
