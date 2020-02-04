@@ -20,7 +20,7 @@ if (isset($_GET['start']) and isset ($_GET['end'])) {
 }
 
 # new event view
-$t = new MyView('event.phtml');
+$t = new MyView('new_event.phtml');
 $t->room = $room;
 $t->room_id = $room_id;
 $t->min_date = $now->format("Y-m-d");
