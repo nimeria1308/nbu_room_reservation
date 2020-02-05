@@ -120,3 +120,9 @@ function confirm_delete_events() {
 function confirm_delete_event() {
     return confirm("Сигурни ли сте, че желаете да изтриете тази заявка?");
 }
+
+function open_show_event(info) {
+    console.log(info);
+    var show_event_url = '/show_event?room_id=' + room_id + '&id=' + info.event.id;
+    open_ajax_popup(show_event_url);
+}

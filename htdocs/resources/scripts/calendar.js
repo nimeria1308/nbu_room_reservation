@@ -164,6 +164,8 @@ function calendar_ready_callback(calendar) {
         updateEvent(info, event_data);
     });
 
+    calendar.on('eventClick', open_show_event);
+
     calendar.addEventSource('/content/services/events.php?room_id=' + room_id);
 
     calendar.render();

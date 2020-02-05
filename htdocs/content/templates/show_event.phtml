@@ -1,0 +1,103 @@
+<form style="max-width:80%;" id="event_form" method="dialog" class="light">
+    <h2 class="mb-3">
+        Заявка за ползване на <?= $this->room['title'] ?> в библиотеката на НБУ
+    </h2>
+    <p>
+        <label for="date" class="required">Дата:</label>
+        <input class="form-control" type="date" name="date" id="date" readonly />
+    </p>
+    <p>
+        <label for="start_time" class="required">Начален час:</label>
+        <input class="form-control" type="time" name="start_time" readonly />
+    </p>
+    <p>
+        <label for="end_time" class="required">Краен час:</label>
+        <input class="form-control" type="time" name="end_time" readonly />
+    </p>
+    <p>
+        <span class="required">Залата ще бъде ползвана от <span class="smalltext">(Моля попълнете департамент или друг организатор)</span>:</span>
+        <input class="form-control" type="text" name="organizer" readonly />
+    </p>
+    <p>
+        <label for="name" class="required">Наименование на събитието:</label>
+        <input class="form-control" type="text" name="name" readonly />
+    </p>
+    <p>
+       <label for="multimedia" class="required">Ще използвам мултимедийна и озвучителна техника:</label>
+       <select name="multimedia" class="form-control" readonly>
+        <option value="yes">Да</option>
+        <option value="no">Не</option>
+       </select>
+    </p>
+    <p>
+        <span class="required">Декларирам, че при използването на залата се задължавам:</span>
+    </p>
+    <p>
+        <label for="user" class="required">Лице за контакт:</label>
+        <input class="form-control" type="text" name="user" readonly />
+    </p>
+    <p>
+        <label for="phone" class="required">Телефон за връзка:</label>
+        <input class="form-control" type="tel" name="phone" pattern="\+?[0-9]*" readonly />
+    </p>
+    <p>
+        <label for="email" class="required">Електронна поща:</label>
+        <input class="form-control" type="email" name="email" readonly />
+    </p>
+    <p>
+        <label for="other">Допълнителна информация:</label>
+        <textarea class="form-control" name="other" readonly></textarea>
+    </p>
+
+    <h4 class="mb-3">
+        Повтаряне на събитието
+    </h4>
+    <p>
+        <label for="repeat" class="required" readonly>Да се повтаря:</label>
+        <select name="repeat" class="form-control" onchange="on_repeat_change(this);" readonly>
+            <option value="never">Никога</option>
+            <option value="weekly">Седмично</option>
+            <option value="monthly">Месечно</option>
+        </select>
+    </p>
+    <div id="repeat_details" style="display: none;">
+        <p id="weekly_repeat">
+            <label for="weekly_repeat" class="required">На колко седмици да се повтаря:</label>
+            <input type="number" min="1" max="4" value="1" name="weekly_repeat" class="form-control" readonly />
+        </p>
+        <p>
+            <span class="required">Дни, в които да се повтаря:</span><br />
+            <input readonly type="checkbox" name="repeat_day" value="mon" />Пн
+            <input readonly type="checkbox" name="repeat_day" value="tue" />Вт
+            <input readonly type="checkbox" name="repeat_day" value="wed" />Ср
+            <input readonly type="checkbox" name="repeat_day" value="thu" />Чт
+            <input readonly type="checkbox" name="repeat_day" value="fri" />Пт
+            <input readonly type="checkbox" name="repeat_day" value="sat" />Сб
+            <input readonly type="checkbox" name="repeat_day" value="sun" />Нд
+        </p>
+        <p>
+            <label for="repeat_start" class="required">Начало:</label>
+            <input class="form-control" type="date" readonly>" name="repeat_start" />
+        </p>
+        <p>
+            <label for="repeat_end" class="required">Край:</label>
+            <select name="repeat_end" class="form-control" readonly onchange="on_repeat_end_change(this);">
+                <option value="never">Никога</option>
+                <option value="count">След брой провеждания</option>
+                <option value="date">На дата</option>
+            </select>
+        </p>
+        <p id="repeat_end_count" style="display: none;">
+            <label for="repeat_end_count" class="required">След брой провеждания:</label>
+            <input type="number" min="1" value="1" name="repeat_end_count" class="form-control" readonly />
+        </p>
+        <p id="repeat_end_date" style="display: none;">
+            <label for="repeat_end_date" class="required">Крайна дата:</label>
+            <input class="form-control" type="date" name="repeat_end_date" readonly />
+        </p>
+    </div>
+
+    <p class="mb-0 text-right">
+        <input type="buttom" class="btn" value="Затвори" onClick="close_popup();" />
+    </p>
+</form>
