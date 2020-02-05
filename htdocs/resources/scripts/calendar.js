@@ -117,7 +117,7 @@ function calendar_ready_callback(calendar) {
             console.log(resp);
         }
 
-        $.post("/content/services/edit_event.php", {
+        $.post("/content/services/move_event.php", {
             'event': JSON.stringify(event_data)
         }).done(function (data) {
             if (data.status != "ok") {
