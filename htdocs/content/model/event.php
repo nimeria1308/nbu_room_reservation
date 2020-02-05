@@ -45,10 +45,10 @@ function update_calendar_event($event)
     return false;
 }
 
-function load_requests_button(){
+function load_requests_button($room_id){
     require 'database.php';
     
-    $sql = "SELECT * FROM events";
+    $sql = "SELECT * FROM events WHERE room_id=$room_id";
     $stmt = mysqli_stmt_init($db);
     $result = mysqli_query($db,$sql);
     $data = array();
@@ -113,7 +113,7 @@ function requests($id,$start,$end){
                 }
             }
         }
-        return $data;
+        return $data[0];
     }
     
 function send_email($address,$event_id){
@@ -161,7 +161,7 @@ function read_calendar_events($id, $start, $end)
     $events = array();
     $events[] = requests($id,$start,$end);
    
-    return $events[0];
+    return $events;
 }
 //delete events binded to rooms in order to free room(cancel requests)
 function delete_reservation($event_id, $room_id){
