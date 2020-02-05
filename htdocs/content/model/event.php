@@ -113,7 +113,7 @@ function requests($id,$start,$end){
                 }
             }
         }
-        return $data[0];
+        return $data;
     }
     
 function send_email($address,$event_id){
@@ -159,7 +159,7 @@ function send_email($address,$event_id){
 function read_calendar_events($id, $start, $end)
 {
     $events = array();
-    $events[] = requests($id,$start,$end);
+    $events[] = requests($id,$start,$end)[0];
    
     return $events;
 }
