@@ -1,6 +1,5 @@
 <?php
 require_once('libraries/myview.php');
-require_once('libraries/isadmin.php');
 require_once('model/room.php');
 
 $room_id = $_GET['room_id'];
