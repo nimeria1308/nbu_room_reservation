@@ -7,7 +7,7 @@
     <?php } ?>
 </form>
 
-<form method="post">
+<form method="post" action="/delete_events" id="events_form">
     <table>
         <tr>
             <th>
@@ -59,7 +59,7 @@
         <?php foreach ($this->events as $e) { ?>
             <tr>
                 <td>
-                    <input type="checkbox" name="event" value="<?= $e['id'] ?>" onchange="select_event(this)"></checkbox>
+                    <input type="checkbox" name="event[]" value="<?= $e['id'] ?>" onchange="select_event(this)"></checkbox>
                 </td>
                 <td>
                     <?= $e['id'] ?>
@@ -108,6 +108,7 @@
             </tr>
         <?php } ?>
     </table>
+    <input type="hidden" value="<?= $this->room_id ?>" name="room_id" />
     <input type="button" value="Принтирай" onclick="print();" />
-    <input type="button" value="Изтрий избраните" />
+    <input type="submit" value="Изтрий избраните" onclick="return confirm_delete_events();" />
 </form>
