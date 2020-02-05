@@ -51,14 +51,22 @@ function calendar_ready_callback(calendar) {
             'click': function () {
                 open_ajax_popup('/edit_room?room_id=' + room_id);
             }
-        }
+        };
+
+        buttons['delete_room'] = {
+            'text': {
+                'bg': 'изтрии',
+                'en': 'delete'
+            }[locale],
+            'click': delete_room
+        };
     }
 
     var options = {
         'locale': locale,
         'customButtons': buttons,
         'header': {
-            left: 'prev,next today new_reservation edit_room events',
+            left: 'prev,next today new_reservation edit_room delete_room events',
             center: 'title',
             right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
         },
@@ -161,4 +169,11 @@ function calendar_ready_callback(calendar) {
     calendar.render();
 
     global_calendar = calendar;
+}
+
+function delete_room() {
+    if (confirm("Сигурни ли сте, че желаете да изтриете календара на залата заедно с всичките му заявки?") &&
+            confirm("Моля потвърдете отново, че искате да изтриете календара")) {
+        location.replace('/delete_room?room_id=' + room_id);
+    }
 }
