@@ -61,7 +61,7 @@ function on_repeat_end_change(r) {
     }
 }
 
-function on_event_submit() {
+function on_event_submit(editing) {
     // get the form data
     var form_elements = $('#event_form').serializeArray();
 
@@ -84,7 +84,12 @@ function on_event_submit() {
         $.fancybox.open('<h2>Грешка</h2><p>' + data.error + '</p>');
     }
 
-    $.post("/content/services/new_event.php", post_data)
+    var page_prefix = "new";
+    if (editing) {
+        page_prefix  = "edit";
+    }
+
+    $.post("/content/services/" + page_prefix + "_event.php", post_data)
         .done(function (data) {
             if (data.status != "ok") {
                 bad_input_data(data);
@@ -124,4 +129,9 @@ function confirm_delete_event() {
 function open_show_event(room_id, event_id) {
     var show_event_url = '/show_event?room_id=' + room_id + '&id=' + event_id;
     open_ajax_popup(show_event_url);
+}
+
+function open_edit_event(room_id, event_id) {
+    var edit_event_url = '/edit_event?room_id=' + room_id + '&id=' + event_id;
+    open_ajax_popup(edit_event_url);
 }

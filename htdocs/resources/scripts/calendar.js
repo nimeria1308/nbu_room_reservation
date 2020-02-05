@@ -165,7 +165,11 @@ function calendar_ready_callback(calendar) {
     });
 
     calendar.on('eventClick', function(info) {
-        open_show_event(room_id, info.event.id);
+        if (is_admin) {
+            open_edit_event(room_id, info.event.id);
+        } else {
+            open_show_event(room_id, info.event.id);
+        }
     });
 
     calendar.addEventSource('/content/services/events.php?room_id=' + room_id);

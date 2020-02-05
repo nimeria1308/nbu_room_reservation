@@ -1,0 +1,149 @@
+<form style="max-width:80%;" id="event_form" method="dialog" class="light" onsubmit="on_event_submit(true);">
+    <h2 class="mb-3">
+        Заявка за ползване на <?= $this->room['title'] ?> в библиотеката на НБУ
+    </h2>
+    <!-- TODO: Needs to be passed from the backend for each room -->
+    <p>
+        Важно!!!
+    </p>
+    <p>
+        Моля заявката да бъде подавана поне два дена предварително. При дублиране на заявките резервация получава, тази която е заведена първа.
+    </p>
+    <p>
+        В момента на подаване на заявката се информирате за датите, на които не е възможно да ползвате залата.
+    </p>
+    <p>
+        Графикът за семинарната зала се изготвя съобразно работното време на библиотеката:
+    </p>
+    <p>
+        понеделник-петък - от 8.00 до 21.00 ч.
+    </p>
+    <p>
+        събота и неделя - от 9.00 до 17.30 ч.
+    </p>
+    <p>
+        Официални празници и съответно неработни дни са: 1 януари, 3 март, 1 май, 6 май, 24 май, 6 септември, 22 септември, 1 ноември, а също великденските и коледните празнични дни.
+    </p>
+    <p>
+        Библиотеката не поема ангажимент за потвърждение на проведени часове в залата.
+    </p>
+    <p>
+        <label for="date" class="required">Дата:</label>
+        <input class="form-control" type="date" min="<?= $this->min_date ?>" value="<?= $this->date ?>" name="date" id="date" required />
+    </p>
+    <p>
+        <label for="start_time" class="required">Начален час:</label>
+        <input class="form-control" type="time" value="<?= $this->start_time ?>" name="start_time" required />
+    </p>
+    <p>
+        <label for="end_time" class="required">Краен час:</label>
+        <input class="form-control" type="time" value="<?= $this->end_time ?>" name="end_time" required />
+    </p>
+    <p>
+        <span class="required">Залата ще бъде ползвана от <span class="smalltext">(Моля попълнете департамент или друг организатор)</span>:</span>
+        <input class="form-control" type="text" name="organizer" required />
+    </p>
+    <p>
+        <label for="name" class="required">Наименование на събитието:</label>
+        <input class="form-control" type="text" name="name" required />
+    </p>
+    <p>
+       <label for="multimedia" class="required">Ще използвам мултимедийна и озвучителна техника:</label>
+       <select name="multimedia" class="form-control" required>
+        <option value="yes">Да</option>
+        <option value="no">Не</option>
+       </select>
+    </p>
+    <p>
+        <span class="required">Декларирам, че при използването на залата се задължавам:</span>
+    </p>
+    <!-- TODO: The following need to be passed from the backend for each room -->
+    <input type="hidden" name="terms_size" value="4" />
+    <p>
+        <input type="checkbox" name="terms" value="1" required />
+        1. Да уведомя Домакина на НБУ (8110676, в. 2106), за подреждането на залата и броя на необходимите места, един ден предварително.
+    </p>
+    <p>
+        <input type="checkbox" name="terms" value="2" required />
+        2. Да се погрижа участниците да спазват установения от библиотека ред и да опазват библиотечното имущество.
+    </p>
+    <p>
+        <input type="checkbox" name="terms" value="3" required />
+        3. След използване на залата, тя да бъде приведена във вида, в който е заварена.
+    </p>
+    <p>
+        <input type="checkbox" name="terms" value="4" required />
+        4. При повреди нося отговорност за нанесените вреди.
+    </p>
+    <p>
+        <label for="user" class="required">Лице за контакт:</label>
+        <input class="form-control" type="text" name="user" required />
+    </p>
+    <p>
+        <label for="phone" class="required">Телефон за връзка:</label>
+        <input class="form-control" type="tel" name="phone" pattern="\+?[0-9]*" required />
+    </p>
+    <p>
+        <label for="email" class="required">Електронна поща:</label>
+        <input class="form-control" type="email" name="email" required />
+    </p>
+    <p>
+        <label for="other">Допълнителна информация:</label>
+        <textarea class="form-control" name="other"></textarea>
+    </p>
+
+    <h4 class="mb-3">
+        Повтаряне на събитието
+    </h4>
+    <p>
+        <label for="repeat" class="required">Да се повтаря:</label>
+        <select name="repeat" class="form-control" onchange="on_repeat_change(this);">
+            <option value="never">Никога</option>
+            <option value="weekly">Седмично</option>
+            <option value="monthly">Месечно</option>
+        </select>
+    </p>
+    <div id="repeat_details" style="display: none;">
+        <p id="weekly_repeat">
+            <label for="weekly_repeat" class="required">На колко седмици да се повтаря:</label>
+            <input type="number" min="1" max="4" value="1" name="weekly_repeat" class="form-control" />
+        </p>
+        <p>
+            <span class="required">Дни, в които да се повтаря:</span><br />
+            <input type="checkbox" name="repeat_day" value="mon" />Пн
+            <input type="checkbox" name="repeat_day" value="tue" />Вт
+            <input type="checkbox" name="repeat_day" value="wed" />Ср
+            <input type="checkbox" name="repeat_day" value="thu" />Чт
+            <input type="checkbox" name="repeat_day" value="fri" />Пт
+            <input type="checkbox" name="repeat_day" value="sat" />Сб
+            <input type="checkbox" name="repeat_day" value="sun" />Нд
+        </p>
+        <p>
+            <label for="repeat_start" class="required">Начало:</label>
+            <input class="form-control" type="date" min="<?= $this->min_date ?>" value="<?= $this->date ?>" name="repeat_start" />
+        </p>
+        <p>
+            <label for="repeat_end" class="required">Край:</label>
+            <select name="repeat_end" class="form-control" onchange="on_repeat_end_change(this);">
+                <option value="never">Никога</option>
+                <option value="count">След брой провеждания</option>
+                <option value="date">На дата</option>
+            </select>
+        </p>
+        <p id="repeat_end_count" style="display: none;">
+            <label for="repeat_end_count" class="required">След брой провеждания:</label>
+            <input type="number" min="1" value="1" name="repeat_end_count" class="form-control" />
+        </p>
+        <p id="repeat_end_date" style="display: none;">
+            <label for="repeat_end_date" class="required">Крайна дата:</label>
+            <input class="form-control" type="date" min="<?= $this->min_date ?>" value="<?= $this->date ?>" name="repeat_end_date" />
+        </p>
+    </div>
+
+    <input type="hidden" name="room_id" value=" <?= $this->room_id ?>" />
+
+    <p class="mb-0 text-right">
+        <input type="buttom" class="btn" value="Отказ" onClick="close_popup();" />
+        <input type="submit" class="btn btn-primary" value="Приложи промените" />
+    </p>
+</form>
