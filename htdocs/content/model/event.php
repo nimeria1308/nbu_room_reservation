@@ -158,10 +158,7 @@ function send_email($address,$event_id){
 # $end is not inclusive
 function read_calendar_events($id, $start, $end)
 {
-    $events = array();
-    $events[] = requests($id,$start,$end)[0];
-   
-    return $events;
+    return requests($id,$start,$end);
 }
 //delete events binded to rooms in order to free room(cancel requests)
 function delete_reservation($event_id, $room_id){
