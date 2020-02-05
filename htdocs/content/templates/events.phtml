@@ -101,7 +101,7 @@
                     <!-- TODO: needed from backend -->
                 </td>
                 <td>
-                    <a>Разгледай</a>
+                    <a href="" onclick="open_show_event('<?= $e['id'] ?>'); return false;">Разгледай</a>
                     <a>Редактирай</a>
                     <a href="/delete_events?room_id=<?= $this->room_id ?>&event=<?= $e['id'] ?>" onclick="return confirm_delete_event();">Изтрии</a>
                 </td>
