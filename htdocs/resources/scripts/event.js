@@ -108,3 +108,15 @@ function select_event(ch) {
         tr.removeClass('selected');
     }
 }
+
+function confirm_delete_events() {
+    // get a list of all checked events
+    var all_checked = $('#events_form input:checkbox[name=event\\[\\]]:checked');
+
+    // require confirm or cancel if none were checked
+    return !!all_checked.length && confirm("Сигурни ли сте, че желаете да изтриете избраните заявки?");
+}
+
+function confirm_delete_event() {
+    return confirm("Сигурни ли сте, че желаете да изтриете тази заявка?");
+}
