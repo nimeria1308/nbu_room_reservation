@@ -1,5 +1,4 @@
 <?php
-require_once('libraries/forceadmin.php');
 require_once('model/event.php');
 
 # This implements the API required by full calendar
