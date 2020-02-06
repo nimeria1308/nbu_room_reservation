@@ -101,8 +101,8 @@
                     <!-- TODO: needed from backend -->
                 </td>
                 <td>
-                    <a href="" onclick="open_show_event('<?= $e['id'] ?>'); return false;">Разгледай</a>
-                    <a href="" onclick="open_edit_event('<?= $e['id'] ?>'); return false;">Редактирай</a>
+                    <a href="" onclick="open_show_event(<?= "$this->room_id, $e[id]" ?>); return false;">Разгледай</a>
+                    <a href="" onclick="open_edit_event(<?= "$this->room_id, $e[id]" ?>); return false;">Редактирай</a>
                     <a href="/delete_events?room_id=<?= $this->room_id ?>&event=<?= $e['id'] ?>" onclick="return confirm_delete_event();">Изтрии</a>
                 </td>
             </tr>
