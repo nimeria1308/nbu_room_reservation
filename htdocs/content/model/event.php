@@ -334,7 +334,13 @@ function requests($id,$start,$end){
                     "id" => $row['type_id'],
                     "title" => $row['title'],
                     "start" => $new_start,
-                    "end" => $new_end];
+                    "end" => $new_end,
+                    "organizer" => $row['organizer'],
+                    "multimedia" => $row['multimedia'],
+                    "creator" => $row['creator'],
+                    "phone_number" => $row['phone_number'],
+                    "email" => $row['email'],
+                    "description" => $row['description']];
                 $count++;
                 }
             }
