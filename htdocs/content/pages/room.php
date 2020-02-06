@@ -14,13 +14,22 @@ $t->head_elements = [
 ];
 
 $t->stylesheets = [
+    'fullcalendar/core/main.min.css',
+    'fullcalendar/daygrid/main.min.css',
+    'fullcalendar/list/main.min.css',
+    'fullcalendar/timegrid/main.min.css',
     'calendar.css',
 ];
 
 $t->scripts = [
+    'fullcalendar/core/main.min.js',
+    'fullcalendar/core/locales/bg.js',
+    'fullcalendar/daygrid/main.min.js',
+    'fullcalendar/interaction/main.min.js',
+    'fullcalendar/list/main.min.js',
+    'fullcalendar/timegrid/main.min.js',
     'event.js',
     'calendar.js',
-    'external/calendar.js',
 ];
 
 $t->render();

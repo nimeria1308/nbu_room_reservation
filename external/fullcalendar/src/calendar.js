@@ -11,13 +11,4 @@ require('@fullcalendar/daygrid/main.css');
 require('@fullcalendar/timegrid/main.css');
 require('@fullcalendar/list/main.css');
 
-document.addEventListener('DOMContentLoaded', function () {
-    var calendarEl = document.getElementById('calendar');
 
-    var calendar = new Calendar(calendarEl, {
-        plugins: [interactionPlugin, dayGridPlugin, timeGridPlugin, listPlugin],
-        locales: [bgLocale, enLocale],
-    });
-
-    calendar_ready_callback(calendar);
-});

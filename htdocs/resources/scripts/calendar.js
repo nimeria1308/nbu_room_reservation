@@ -1,4 +1,10 @@
-function calendar_ready_callback(calendar) {
+document.addEventListener('DOMContentLoaded', function () {
+    var calendarEl = document.getElementById('calendar');
+
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+        plugins: ['interaction', 'dayGrid', 'timeGrid', 'list'],
+        locales: ['bg', 'en'],
+    });
 
     var locale = cookie.get('locale', 'bg');
     var is_admin = cookie.get('is_admin', false);
@@ -177,7 +183,7 @@ function calendar_ready_callback(calendar) {
     calendar.render();
 
     global_calendar = calendar;
-}
+});
 
 function delete_room() {
     if (confirm("Сигурни ли сте, че желаете да изтриете календара на залата заедно с всичките му заявки?") &&
