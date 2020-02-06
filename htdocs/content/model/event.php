@@ -116,8 +116,8 @@ function create_new_event($event,$start,$end){
 	//TODO: adds Missings columns
 	//terms, multimedia, organizer, 
 	$create_new_event="INSERT INTO events
-	(title, description, start_date, end_date, room_id_num,creator_name, email,telephone,ip, creation_time) VALUES
-	('$event[name]', '$event[other]', '$start', '$end', $event[room_id], '$event[name]', '$event[email]', $event[phone], '$ip','$time')";
+	(title, description, start_date, end_date, room_id_num,creator_name, email,telephone,organizer,multimedia,ip, creation_time) VALUES
+	('$event[name]', '$event[other]', '$start', '$end', $event[room_id], '$event[user]', '$event[email]', $event[phone],'$event[organizer]',$event[multimedia] ,'$ip','$time')";
 
 	//If the event is create successfully
 	if($db->query($create_new_event)===TRUE){
@@ -138,8 +138,8 @@ function create_new_repeating_event($event,$start,$end){
 	//TODO: adds Missings columns
 	//terms, multimedia, organizer, 
 	$create_new_event="INSERT INTO events
-	(title, description, start_date, end_date, room_id_num,type_id,creator_name, email,telephone,ip, creation_time) VALUES
-	('$event[name]', '$event[other]', '$start', '$end', $event[room_id], $event[id], '$event[user]', '$event[email]', $event[phone], '$ip','$time')";
+	(title, description, start_date, end_date, room_id_num,type_id,creator_name, email,telephone,organizer,multimedia,ip, creation_time) VALUES
+	('$event[name]', '$event[other]', '$start', '$end', $event[room_id], $event[id], '$event[user]', '$event[email]', $event[phone],'$event[organizer]',$event[multimedia] ,'$ip','$time')";
 
 	if($db->query($create_new_event)===TRUE){
 		return true;
@@ -169,11 +169,21 @@ function new_event($event){
 	$start_date=$event['date'].' '.$event['start_time'];
 	$end_date=$event['date'].' '.$event['end_time'];
 	if(!check_time_slot($start_date,$end_date,$event['room_id'])){
-		return false;
+		$arr=[
+			'status'=>false,
+			'error'=>"Невалиден час",
+		];
+		return $arr;
 	}
 
 	//Create the event
-	create_new_event($event,$start_date,$end_date);
+	if(!create_new_event($event,$start_date,$end_date)){
+		$arr=[
+			'status'=>false,
+			'error'=>"Попълнената информация е навалидна",
+		];
+		return $arr;
+	}
 	//Save the event id for use in repeating events because the fullcalendar API used same id for repeating events
 	$event['id']=find_event_id($start_date,$end_date,$event['room_id']);
 
@@ -206,7 +216,8 @@ function new_event($event){
 							++$events_created;
 						}	
 						if($events_created>$event['repeat_end_count']){
-							return true;
+							$arr=['status'=>true,];
+							return $arr;
 						}
 					}
 					//After for all of the selected days are set to be repeated
@@ -227,7 +238,8 @@ function new_event($event){
 						//If the next date for the event is before the end date
 						//No more events can be created
 						if($next_date>$event['repeat_end_date']){
-							return true;
+							$arr=['status'=>true,];
+							return $arr;
 						}
 						
 							//Adds the hour to the date to be inserted into the database
@@ -256,7 +268,8 @@ function new_event($event){
 				//If the next day beyound the end date no further events must be created
 					//No more events are to be created
 				if($event['repeat_end']=='date' && $next_date>$event['repeat_end_date']){
-					return true;
+					$arr=['status'=>true,];
+					return $arr;
 				}
 				
 				//Adds the hour to the date to be inserted into the database
@@ -269,14 +282,16 @@ function new_event($event){
 					//If the created events have exceeded the maximum number of repeating events
 					//No more events are to be created
 					if($event['repeat_end']=='count' && $events_created>$event['repeat_end_count']){
-						return true;
+						$arr=['status'=>true,];
+						return $arr;
 					}
 				}
 			}
 		}
 	}
 
-	return true;
+	$arr=['status'=>true,];
+	return $arr;
 }
 
 function load_requests_button($room_id){
