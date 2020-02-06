@@ -13,13 +13,13 @@
         В момента на подаване на заявката се информирате за датите, на които не е възможно да ползвате залата.
     </p>
     <p>
-        Графикът за семинарната зала се изготвя съобразно работното време на библиотеката:
+        Графикът за <?= $this->room['title'] ?> се изготвя съобразно работното време на библиотеката:
     </p>
     <p>
-        понеделник-петък - от 8.00 до 21.00 ч.
+        понеделник-петък - от <?= $this->room['workday_open'].' до '.$this->room['workday_open'] ?> ч.
     </p>
     <p>
-        събота и неделя - от 9.00 до 17.30 ч.
+        събота и неделя - от <?= $this->room['weekend_open'].' до '.$this->room['weekend_close'] ?> ч.
     </p>
     <p>
         Официални празници и съответно неработни дни са: 1 януари, 3 март, 1 май, 6 май, 24 май, 6 септември, 22 септември, 1 ноември, а също великденските и коледните празнични дни.
@@ -29,23 +29,23 @@
     </p>
     <p>
         <label for="date" class="required">Дата:</label>
-        <input class="form-control" type="date" min="<?= $this->min_date ?>" value="<?= $this->date ?>" name="date" id="date" required />
+        <input class="form-control" type="date" min="<?= $this->min_date ?>" value="<?= $this->event['start_date'] ?>" name="date" id="date" required />
     </p>
     <p>
         <label for="start_time" class="required">Начален час:</label>
-        <input class="form-control" type="time" value="<?= $this->start_time ?>" name="start_time" required />
+        <input class="form-control" type="time" value="<?= $this->event['start_hour'] ?>" name="start_time" required />
     </p>
     <p>
         <label for="end_time" class="required">Краен час:</label>
-        <input class="form-control" type="time" value="<?= $this->end_time ?>" name="end_time" required />
+        <input class="form-control" type="time" value="<?= $this->event['end_hour'] ?>" name="end_time" required />
     </p>
     <p>
         <span class="required">Залата ще бъде ползвана от <span class="smalltext">(Моля попълнете департамент или друг организатор)</span>:</span>
-        <input class="form-control" type="text" name="organizer" required />
+        <input class="form-control" type="text" name="organizer" value="<?= $this->event['organizer'] ?>" required />
     </p>
     <p>
         <label for="name" class="required">Наименование на събитието:</label>
-        <input class="form-control" type="text" name="name" required />
+        <input class="form-control" type="text" name="name" value="<?= $this->event['title'] ?>" required />
     </p>
     <p>
        <label for="multimedia" class="required">Ще използвам мултимедийна и озвучителна техника:</label>
@@ -77,19 +77,19 @@
     </p>
     <p>
         <label for="user" class="required">Лице за контакт:</label>
-        <input class="form-control" type="text" name="user" required />
+        <input class="form-control" type="text" name="user" value="<?= $this->event['user'] ?>" required />
     </p>
     <p>
         <label for="phone" class="required">Телефон за връзка:</label>
-        <input class="form-control" type="tel" name="phone" pattern="\+?[0-9]*" required />
+        <input class="form-control" type="tel" name="phone" pattern="\+?[0-9]*" value="<?= $this->event['phone'] ?>" required />
     </p>
     <p>
         <label for="email" class="required">Електронна поща:</label>
-        <input class="form-control" type="email" name="email" required />
+        <input class="form-control" type="email" name="email" value="<?= $this->event['email'] ?>" required />
     </p>
     <p>
         <label for="other">Допълнителна информация:</label>
-        <textarea class="form-control" name="other"></textarea>
+        <textarea class="form-control" name="other" value="<?= $this->event['other'] ?>"></textarea>
     </p>
 
     <h4 class="mb-3">
@@ -141,7 +141,7 @@
     </div>
 
     <input type="hidden" name="room_id" value=" <?= $this->room_id ?>" />
-
+		<input type="hidden" name="event_id" value=" <?= $this->event['real_id'] ?>" />
     <p class="mb-0 text-right">
         <input type="buttom" class="btn" value="Отказ" onClick="close_popup();" />
         <input type="submit" class="btn btn-primary" value="Приложи промените" />

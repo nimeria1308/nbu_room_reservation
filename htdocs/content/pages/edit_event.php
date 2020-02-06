@@ -9,7 +9,7 @@ $room = get_room($room_id);
 $event_id = $_GET['id'];
 
 // TODO: Get event from backend
-$event = [];
+$event = get_event_by_id($event_id,$room);
 
 # show event view
 $t = new MyView('edit_event.phtml');

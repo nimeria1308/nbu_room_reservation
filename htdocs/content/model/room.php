@@ -14,7 +14,7 @@ function get_rooms()
             $room[$row['room_id']]=[
                 "title" => $row['room_name'],
                 "img_url" => $row['image_path'],
-                "color" => $row['color'],
+								"color" => $row['color'],
             ];
         }
         return $room;
@@ -57,7 +57,11 @@ function get_room($id) {
             $row['room_id'] => [
                 "title" => $row['room_name'],
                 "img_url" => $row['image_path'],
-                "color" => $row['color'],
+								"color" => $row['color'],
+								"workday_open" => $row['workday_open'],
+								"workday_close" => $row['workday_close'],
+								"weekend_open" => $row['weekend_open'],
+								"weekend_close" => $row['weekend_close'],
             ]
         ];
         

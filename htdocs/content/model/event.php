@@ -53,6 +53,124 @@ function update_calendar_event($event)
     return false;
 }
 
+function update_existing_event($updated_event,$start,$end){
+	require "database.php";
+	$ip=find_ip();
+	$time = date("Y/m/d H:i:s");
+
+	//If the current date is not 2 days before the creation of the event
+	//Then the event will not be created
+	$valid_date= date('Y/m/d',strtotime($time. "+2 days"));
+	if($valid_date<$start){
+		return false;
+	}
+
+	//TODO: adds Missings columns
+	//terms, multimedia, organizer, 
+
+	$update_existing_event="UPDATE events SET title='$updated_event[name]', start_date='$start',end_date= '$end',
+	room_id_num= $updated_event[room_id],creator_name='$updated_event[user]',email='$updated_event[email]',telephone=$updated_event[phone],
+	organizer='$updated_event[organizer]',multimedia=$updated_event[multimedia] ,ip='$ip',creation_time='$time' WHERE event_id=$updated_event[event_id]";
+
+	//If the event is create successfully
+	if($db->query($update_existing_event)===TRUE){
+		//TODO: sent email
+		return true;
+	}else{
+		return false;
+	}
+}
+
+function edit_event($updated_event,$room){
+#	  require_once "database.php";
+		
+	//$event=get_event_by_id($updated_event['real_id']);
+
+	if(!is_room_open($room,$updated_event)){
+		$arr=[
+			'status'=>false,
+			'error'=>"Невалиден час. Залата не е отворена",
+		];
+		return $arr;
+	}
+	
+	
+	//Check for existing event
+	$start_date=$updated_event['date'].' '.$updated_event['start_time'];
+	$end_date=$updated_event['date'].' '.$updated_event['end_time'];
+	if(!check_time_slot($start_date,$end_date,$updated_event['room_id'])){
+		$arr=[
+			'status'=>false,
+			'error'=>"Невалиден час",
+		];
+		return $arr;
+	}
+
+	if(!update_existing_event($updated_event,$start_date,$end_date)){
+		$arr=[
+			'status'=>false,
+			'error'=>"Попълнената информация е навалидна",
+		];
+		return $arr;
+	}
+
+	return repeat_event($updated_event);
+}
+
+function get_event_by_id($id){
+	require "database.php";
+
+	$find_event=$db->query("SELECT * FROM events WHERE event_id=$id");
+	if(mysqli_num_rows($find_event)!=0){
+		$row=$find_event->fetch_array();
+
+		$start_date=date('m/d/Y',strtotime($row['start_date']));
+		$start_hour= date('H:i', strtotime($row['start_date']));
+		$end_hour= date('H:i', strtotime($row['end_date']));
+
+
+		if( $row['multimedia']==1){
+			$multimedia='+техника';
+		}else{
+			$multimedia='без техника';
+		}
+		
+		$data[]=[
+			"id" => $row['type_id'],
+			"real_id" => $row['event_id'],
+			"title" => $row['title'],
+			"start_date" => $start_date,
+			"start_hour" => $start_hour,
+			"end_hour" => $end_hour,
+			"organizer" => $row['organizer'],
+			"multimedia" => $multimedia,
+			"user" => $row['creator_name'],
+			"phone" => $row['telephone'],
+			"email" => $row['email'],
+			"other" => $row['description'],
+			"creation_time" => $row['creation_time']];
+
+			return $data[0];
+	}
+}
+
+function is_room_open($room,$event){
+	//Extracts only the day from the starts day in int variable
+	$date=date_create($event['date']);
+	$start_day= date_format($date,"N");
+
+	if($start_day>0 && $start_day<6){
+		if($room['workday_open']<=$event['start_time']&& $room['workday_close']>=$event['end_time'] && $event['start_time']<$event['end_time']){
+			return true;
+		}
+	}else{
+		if($room['weekend_open']<=$event['start_time']&& $room['weekend_close']>=$event['end_time']&& $event['start_time']<$event['end_time']){
+			return true;
+		}
+	}
+	return false;
+}
+
 //Find if the current time slot is free
 function check_time_slot($start_date,$end_date,$room_id){
 	require "database.php";
@@ -84,7 +202,7 @@ function find_next_day($day,$start_date){
 	}
 	
 	$string= "+$diff days";
-	$next_date= date('Y/m/d',strtotime($start_date. $string));
+	$next_date= date('Y-m-d',strtotime($start_date. $string));
 	
 	//Returns the day the event must repeat
 	return $next_date;
@@ -113,6 +231,13 @@ function create_new_event($event,$start,$end){
 	$ip=find_ip();
 	$time = date("Y/m/d H:i:s");
 
+	//If the current date is not 2 days before the creation of the event
+	//Then the event will not be created
+	$valid_date= date('Y/m/d',strtotime($time. "+2 days"));
+	if($valid_date<=$start){
+		return false;
+	}
+
 	//TODO: adds Missings columns
 	//terms, multimedia, organizer, 
 	$create_new_event="INSERT INTO events
@@ -124,6 +249,7 @@ function create_new_event($event,$start,$end){
 		//Find its id and set value to type_id which is used it case of repeating events
 		$id=find_event_id($start,$end,$event['room_id']);
 		$update_type_id=$db->query("UPDATE events SET type_id = $id WHERE event_id=$id");
+		//TODO: sent email
 		return true;
 	}else{
 		return false;
@@ -135,6 +261,13 @@ function create_new_repeating_event($event,$start,$end){
 	$ip=find_ip();
 	$time = date("Y/m/d H:i:s");
 
+		//If the current date is not 2 days before the creation of the event
+	//Then the event will not be created
+	$valid_date= date('Y/m/d',strtotime($time. "+2 days"));
+	if($valid_date>$start){
+		return false;
+	}
+
 	//TODO: adds Missings columns
 	//terms, multimedia, organizer, 
 	$create_new_event="INSERT INTO events
@@ -142,10 +275,115 @@ function create_new_repeating_event($event,$start,$end){
 	('$event[name]', '$event[other]', '$start', '$end', $event[room_id], $event[id], '$event[user]', '$event[email]', $event[phone],'$event[organizer]',$event[multimedia] ,'$ip','$time')";
 
 	if($db->query($create_new_event)===TRUE){
+		//TODO: Sent email
 		return true;
 	}else{
 		return false;
 	}
+}
+
+function repeat_event($event){
+		//Check if user has set repeating events
+		if($event['repeat']!='never'){
+			//The date from which all of the repeating events start
+			$start_date = $event['repeat_start'];
+			$event['repeat_day']=explode(" ",$event['repeat_day']);
+			//If the repeating is set to weekly the event can repeat at most 4 times at any given days
+			if( $event['repeat']=='weekly'){
+				//Starts the counter for the number of repeats
+				if($event['repeat_end']=='count'){
+					$events_created=0;
+	
+					for($count=0;$count<$event['weekly_repeat'];++$count){
+						//Cycle for each of the selected days to repeat
+						foreach($event['repeat_day'] as $day){
+							//Finds the date for the next day set
+							$next_date=find_next_day($day,$start_date);
+
+							//Adds the hour to the date to be inserted into the database
+							$next_start=$next_date.' '.$event['start_time'];
+							$next_end=$next_date.' '.$event['end_time'];
+		
+							//Checks from the database if the time slot is free
+							if(check_time_slot($next_start,$next_end,$event['room_id'])){
+								create_new_repeating_event($event,$next_start,$next_end);
+								++$events_created;
+							}	
+							if($events_created>=$event['repeat_end_count']){
+								$arr=['status'=>true,];
+								return $arr;
+							}
+						}
+						//After for all of the selected days are set to be repeated
+						//Advance the starting repeating date by 7 days
+						$start_date= date('Y/m/d',strtotime($start_date. "+7 days"));
+						//If the created events have exceeded the maximum number of repeating events
+						//No more events are to be created
+					}
+				}else if($event['repeat_end']=='date'){
+					//Repeat while the end date is reached
+					$count=0; 
+					while($start_date<=$event['repeat_end_date'] && $count<$event['weekly_repeat'])
+					{
+						foreach($event['repeat_day'] as $day){
+							//Finds the date for the next day set
+							$next_date=find_next_day($day,$start_date);
+	
+							//If the next date for the event is before the end date
+							//No more events can be created
+							if($next_date>$event['repeat_end_date']){
+								$arr=['status'=>true,];
+								return $arr;
+							}
+							
+								//Adds the hour to the date to be inserted into the database
+								$next_start=$next_date.' '.$event['start_time'];
+								$next_end=$next_date.' '.$event['end_time'];
+	
+								//Checks from the database if the time slot is free
+								if(check_time_slot($next_start,$next_end,$event['room_id'])){
+									create_new_repeating_event($event,$next_start,$next_end);
+								}
+						}
+						//After for all of the selected days are set to be repeated
+						//Advance the starting repeating date by 7 days
+						$start_date= date('Y/m/d',strtotime($start_date. "+7 days"));
+						++$count;
+					}
+				}
+			//If the repeating is set to monthly 
+			}else if($event['repeat']=='monthly'){
+				//Advance the date by 1 month
+				$next_date= date('Y/m/d',strtotime($start_date. "+1 months"));
+				$events_created=0;
+				//Cycle for each of the selected days to repeat
+				foreach($event['repeat_day'] as $day){
+					$next_date=find_next_day($day,$next_date);
+	
+					//If the next day beyound the end date no further events must be created
+						//No more events are to be created
+					if($event['repeat_end']=='date' && $next_date>$event['repeat_end_date']){
+						$arr=['status'=>true,];
+						return $arr;
+					}
+					
+					//Adds the hour to the date to be inserted into the database
+					$next_start=$next_date.' '.$event['start_time'];
+					$next_end=$next_date.' '.$event['end_time'];
+	
+					//Checks from the database if the time slot is free
+					if(check_time_slot($next_start,$next_end,$event['room_id'])){
+						create_new_repeating_event($event,$next_start,$next_end);
+						//If the created events have exceeded the maximum number of repeating events
+						//No more events are to be created
+						if($event['repeat_end']=='count' && $events_created>$event['repeat_end_count']){
+							$arr=['status'=>true,];
+							return $arr;
+						}
+					}
+				}
+			}
+		}
 }
 
 //$event is an array which contains all of the information the user has entered from the form
@@ -163,8 +401,18 @@ function create_new_repeating_event($event,$start,$end){
 //	email - string
 //	description - string
 //}
-function new_event($event){
+function new_event($event,$room){
 	require_once "database.php";
+
+	if(!is_room_open($room,$event)){
+		$arr=[
+			'status'=>false,
+			'error'=>"Невалиден час. Залата не е отворена",
+		];
+		return $arr;
+	}
+
+
 	//Check for existing event
 	$start_date=$event['date'].' '.$event['start_time'];
 	$end_date=$event['date'].' '.$event['end_time'];
@@ -187,111 +435,7 @@ function new_event($event){
 	//Save the event id for use in repeating events because the fullcalendar API used same id for repeating events
 	$event['id']=find_event_id($start_date,$end_date,$event['room_id']);
 
-	//Check if user has set repeating events
-	if($event['repeat']!='never'){
-		//The date from which all of the repeating events start
-		$start_date = $event['repeat_start'];
-		//If the repeating is set to weekly the event can repeat at most 4 times at any given days
-		if( $event['repeat']=='weekly'){
-			//Starts the counter for the number of repeats
-			if($event['repeat_end']=='count'){
-				$events_created=0;
-
-				for($count=0;$count<$event['weekly_repeat'];++$count){
-					//Cycle for each of the selected days to repeat
-					foreach($event['repeat_day'] as $day){
-						//Finds the date for the next day set
-						$next_date=find_next_day($day,$start_date);
-						
-						//If the next date for the event is before the end date
-						//No more events can be created
-
-						//Adds the hour to the date to be inserted into the database
-						$next_start=$next_date.' '.$event['start_time'];
-						$next_end=$next_date.' '.$event['end_time'];
-	
-						//Checks from the database if the time slot is free
-						if(check_time_slot($next_start,$next_end,$event['room_id'])){
-							create_new_repeating_event($event,$next_start,$next_end);
-							++$events_created;
-						}	
-						if($events_created>$event['repeat_end_count']){
-							$arr=['status'=>true,];
-							return $arr;
-						}
-					}
-					//After for all of the selected days are set to be repeated
-					//Advance the starting repeating date by 7 days
-					$start_date= date('Y/m/d',strtotime($start_date. "+7 days"));
-					//If the created events have exceeded the maximum number of repeating events
-					//No more events are to be created
-				}
-			}else if($event['repeat_end']=='date'){
-				//Repeat while the end date is reached
-				$count=0; 
-				while($start_date<=$event['repeat_end_date'] && $count<$event['weekly_repeat'])
-				{
-					foreach($event['repeat_day'] as $day){
-						//Finds the date for the next day set
-						$next_date=find_next_day($day,$start_date);
-
-						//If the next date for the event is before the end date
-						//No more events can be created
-						if($next_date>$event['repeat_end_date']){
-							$arr=['status'=>true,];
-							return $arr;
-						}
-						
-							//Adds the hour to the date to be inserted into the database
-							$next_start=$next_date.' '.$event['start_time'];
-							$next_end=$next_date.' '.$event['end_time'];
-
-							//Checks from the database if the time slot is free
-							if(check_time_slot($next_start,$next_end,$event['room_id'])){
-								create_new_repeating_event($event,$next_start,$next_end);
-							}
-					}
-					//After for all of the selected days are set to be repeated
-					//Advance the starting repeating date by 7 days
-					$start_date= date('Y/m/d',strtotime($start_date. "+7 days"));
-				}
-			}
-		//If the repeating is set to monthly 
-		}else if($event['repeat']=='monthly'){
-			//Advance the date by 1 month
-			$next_date= date('Y/m/d',strtotime($start_date. "+1 months"));
-			$events_created=0;
-			//Cycle for each of the selected days to repeat
-			foreach($event['repeat_days'] as $day){
-				$next_date=find_next_day($day,$next_date);
-
-				//If the next day beyound the end date no further events must be created
-					//No more events are to be created
-				if($event['repeat_end']=='date' && $next_date>$event['repeat_end_date']){
-					$arr=['status'=>true,];
-					return $arr;
-				}
-				
-				//Adds the hour to the date to be inserted into the database
-				$next_start=$next_date.' '.$event['start_time'];
-				$next_end=$next_date.' '.$event['end_time'];
-
-				//Checks from the database if the time slot is free
-				if(check_time_slot($next_start,$next_end,$event['room_id'])){
-					create_new_repeating_event($event,$next_start,$next_end);
-					//If the created events have exceeded the maximum number of repeating events
-					//No more events are to be created
-					if($event['repeat_end']=='count' && $events_created>$event['repeat_end_count']){
-						$arr=['status'=>true,];
-						return $arr;
-					}
-				}
-			}
-		}
-	}
-
-	$arr=['status'=>true,];
-	return $arr;
+	return repeat_event($event);
 }
 
 function load_requests_button($room_id){
