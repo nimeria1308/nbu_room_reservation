@@ -24,15 +24,23 @@
 function update_calendar_event($event)
 {
     require_once "database.php";
-    //Check for existing event
-    $find_event=$db->query("SELECT * FROM events WHERE type_id=$event[id] AND start_date=$event[old][start] AND end_date=$event[old][end]");
+		$old_start=$event->old->start->format('Y/m/d H:i:s');
+		$old_end=$event->old->end->format('Y/m/d H:i:s');
+
+		$new_start=$event->new->start->format('Y/m/d H:i:s');
+		$new_end=$event->new->end->format('Y/m/d H:i:s');
+
+		$id=(int)$event->id;
+
+		//Check for existing event
+    $find_event=$db->query("SELECT * FROM events WHERE type_id=$id AND start_date='$old_start' AND end_date='$old_end'");
     if(mysqli_num_rows($find_event)!=0){
         //Check for free time slot
-        $find_time_slot=$db->query("SELECT event_id FROM events WHERE $event[new][start]>=start_date AND $event[new][end]<=end_date");
-        if(mysqli_num_rows($db)==0){
+        $find_time_slot=$db->query("SELECT event_id FROM events WHERE '$new_start'>=start_date AND '$new_end'<=end_date");
+        if(mysqli_num_rows($find_time_slot)==0){
             //Update the event if timeslot if free
-            $update=$db->query("UPDATE events SET title='$event[title]',description='$events[description]',start_date=$event[new][start],end_date=$event[new][end] WHERE type_id=$event[id] AND start_date=$event[old][start] AND end_date=$event[old][end]");
-            if(mysqli_affected_rows($update) >0){
+            $update=$db->query("UPDATE events SET start_date='$new_start',end_date='$new_end' WHERE type_id=$id AND start_date='$old_start' AND end_date='$old_end'");
+            if($update){
                 return true;
             }else{
                 return false;
@@ -109,7 +117,7 @@ function create_new_event($event,$start,$end){
 	//terms, multimedia, organizer, 
 	$create_new_event="INSERT INTO events
 	(title, description, start_date, end_date, room_id_num,creator_name, email,telephone,ip, creation_time) VALUES
-	('$event[name]', '$event[other]', '$start', '$end', $event[room_id], '$event[name]', '$event[email]', $event[phone_number], '$ip','$time')";
+	('$event[name]', '$event[other]', '$start', '$end', $event[room_id], '$event[name]', '$event[email]', $event[phone], '$ip','$time')";
 
 	//If the event is create successfully
 	if($db->query($create_new_event)===TRUE){

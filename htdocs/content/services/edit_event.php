@@ -10,6 +10,7 @@ $room = get_room(intval($room_id));
 # input: the data is received in $_POST
 # output: set $status to true if OK
 #         set $status to false if failed, and fill in $error
+$arr=edit_event($_POST);
 
 $status = true;
 $error = "message explaining error";
