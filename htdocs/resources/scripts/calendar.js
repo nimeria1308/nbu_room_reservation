@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         buttons['delete_room'] = {
             'text': {
-                'bg': 'изтрии',
+                'bg': 'изтрий',
                 'en': 'delete'
             }[locale],
             'click': delete_room
