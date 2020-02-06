@@ -5,3 +5,6 @@ logs/
 htdocs/resources/**/external/
 /nbproject/private/
 .vscode/launch.json
+
+# So that someone does not add the old calendar by mistake
+external/
