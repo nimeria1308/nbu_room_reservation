@@ -314,7 +314,7 @@ function search($title){
 }
 
 function requests($id,$start,$end){
-    require_once 'database.php';
+    require 'database.php';
     $sql = "SELECT * FROM events WHERE room_id_num = ?;";
     $stmt = mysqli_stmt_init($db);
     if(!mysqli_stmt_prepare($stmt, $sql)){
