@@ -30,6 +30,10 @@ $t->render();
 $events = [];
 $search = array_key_exists('search', $_GET) ? trim($_GET['search']) : "";
 
+# default values for sorting
+$sortby = array_key_exists('sortby', $_GET) ? trim($_GET['sortby']) : "id";
+$order = array_key_exists('order', $_GET) ? trim($_GET['order']) : "asc";
+
 if ($search) {
     // if search provided, search in the backend for those events
     // TODO: pass events from backend
@@ -38,7 +42,19 @@ if ($search) {
     # FIXME: it needs dummy dates to list all events
     $min_date = date('Y', 0);
     $max_date = new DateTime("01/01/30");
-    $events = requests($room_id, $min_date, $max_date);
+    $events = requests($room_id, $min_date, $max_date, $sortby, $order);
+}
+
+function get_sort_link($id) {
+    global $sortby;
+    global $order;
+
+    $neworder = "asc";
+    if ($id == $sortby) {
+        // toggle the order for this one
+        $neworder = ($order == 'asc' ? 'desc' : 'asc');
+    }
+    return "?sortby=$id&order=$neworder";
 }
 
 $t = new MyView("events.phtml");
