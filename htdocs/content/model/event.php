@@ -338,17 +338,25 @@ function requests($id,$start,$end){
             $new_start =  new DateTime($row['start_date']);
             $new_end = new DateTime($row['end_date']);
             if($new_start >= $start && $new_end <= $end){
-                $data[]=[    
-                    "id" => $row['type_id'],
+							if( $row['multimedia']==1){
+								$multimedia='+техника';
+							}else{
+								$multimedia='без техника';
+							}
+
+                $data[]=[
+										"id" => $row['type_id'],
+										"real_id" => $row['event_id'],
                     "title" => $row['title'],
                     "start" => $new_start,
                     "end" => $new_end,
                     "organizer" => $row['organizer'],
-                    "multimedia" => $row['multimedia'],
-                    "creator" => $row['creator'],
-                    "phone_number" => $row['phone_number'],
+                    "multimedia" => $multimedia,
+                    "user" => $row['creator_name'],
+                    "phone" => $row['telephone'],
                     "email" => $row['email'],
-                    "description" => $row['description']];
+										"other" => $row['description'],
+										"creation_time" => $row['creation_time']];
                 $count++;
                 }
             }

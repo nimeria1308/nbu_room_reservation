@@ -62,10 +62,10 @@
                     <input type="checkbox" name="event[]" value="<?= $e['id'] ?>" onchange="select_event(this)"></checkbox>
                 </td>
                 <td>
-                    <?= $e['id'] ?>
+                    <?= $e['real_id'] ?>
                 </td>
                 <td>
-                    <!-- TODO: needed from backend -->
+                    <?= $e['creation_time']?>
                 </td>
                 <td>
                     <?= $e['start']->format("d/m/Y") ?>
@@ -77,25 +77,25 @@
                     <?= $e['end']->format("H:s") ?>
                 </td>
                 <td>
-                    <!-- TODO: needed from backend -->
+                    <?= $e['organizer'] ?>
                 </td>
                 <td>
-                    <?= $e['title'] ?>
+                    <?= $e['title'].' '.$e['multimedia'] ?>
                 </td>
                 <td>
-                    <!-- TODO: needed from backend -->
+                    
                 </td>
                 <td>
-                    <!-- TODO: needed from backend -->
+                    <?= $e['user'] ?>
                 </td>
                 <td>
-                    <!-- TODO: needed from backend -->
+                    <?= $e['phone'] ?>
                 </td>
                 <td>
-                    <!-- TODO: needed from backend -->
+                    <?= $e['email']?>
                 </td>
                 <td>
-                    <!-- TODO: needed from backend -->
+                    <?= $e['other'] ?>
                 </td>
                 <td>
                     <!-- TODO: needed from backend -->
