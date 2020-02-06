@@ -4,3 +4,4 @@ logs/
 # Compiled packages
 htdocs/resources/**/external/
 /nbproject/private/
+.vscode/launch.json
