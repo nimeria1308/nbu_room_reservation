@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 06, 2020 at 06:53 PM
+-- Generation Time: Feb 07, 2020 at 09:04 AM
 -- Server version: 10.4.8-MariaDB
 -- PHP Version: 7.3.10
 
@@ -70,7 +70,7 @@ CREATE TABLE `events` (
 
 INSERT INTO `events` (`title`, `description`, `start_date`, `end_date`, `event_id`, `room_id_num`, `type_id`, `creator_name`, `email`, `telephone`, `organizer`, `multimedia`, `ip`, `creation_time`) VALUES
 ('Семинар към курс по Python', 'Примерно описание', '2020-02-06 14:00:00', '2020-02-06 17:00:00', 1, 0, 1, 'Иван Иванов', 'IvanIvanov@gmail.com', 123456789, 'Иван Иванов', 0, '172.16.254.1', '2020-01-05 14:00:00'),
-('Семинар към курс по Python', 'Примерно описание', '2020-02-13 14:00:00', '2020-02-13 17:00:00', 2, 0, 1, 'Иван Иванов', 'IvanIvanov@gmail.com', 123456789, 'Иван Иванов', 0, '172.16.254.1', '2020-01-05 14:00:00'),
+('Семинар към курс по Python', 'Примерно описание', '2020-02-18 14:00:00', '2020-02-18 17:00:00', 2, 0, 1, 'Иван Иванов', 'IvanIvanov@gmail.com', 123456789, 'Иван Иванов', 1, '192.168.1.100', '2020-02-06 23:38:46'),
 ('Семинар към курс по Python', 'Примерно описание', '2020-02-20 14:00:00', '2020-02-20 17:00:00', 3, 0, 1, 'Иван Иванов', 'IvanIvanov@gmail.com', 123456789, 'Иван Иванов', 0, '172.16.254.1', '2020-01-05 14:00:00'),
 ('Извънреден семинар по киберсигурност', 'Примерно описание 2', '2020-02-14 09:30:00', '2020-02-14 14:45:00', 4, 0, 4, 'Петър Петров', 'PeterPetrov@gmail.com', 987654321, 'Петър Петров', 1, '172.16.452.1', '2020-01-13 09:30:00'),
 ('Семинар по древни езици', 'Примерно описание 3', '2020-02-21 11:00:00', '2020-02-21 19:00:00', 5, 0, 5, 'Ангел Ангелов', 'agelagelov@gmail.com', 342123578, 'Ангел Ангелов', 0, '172.16.432.1', '2020-01-20 11:00:00'),
@@ -89,16 +89,20 @@ CREATE TABLE `room` (
   `room_id` int(255) NOT NULL,
   `room_name` varchar(255) NOT NULL,
   `image_path` varchar(255) NOT NULL,
-  `color` varchar(255) NOT NULL
+  `color` varchar(255) NOT NULL,
+  `workday_open` time NOT NULL,
+  `workday_close` time NOT NULL,
+  `weekend_open` time NOT NULL,
+  `weekend_close` time NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `room`
 --
 
-INSERT INTO `room` (`room_id`, `room_name`, `image_path`, `color`) VALUES
-(0, 'Семинарна зала', 'seminars-hall.jpg', '#1E90FF'),
-(1, 'Зала за колективна работа', 'collective-work-hall.jpg', '#FF69B4');
+INSERT INTO `room` (`room_id`, `room_name`, `image_path`, `color`, `workday_open`, `workday_close`, `weekend_open`, `weekend_close`) VALUES
+(0, 'Семинарна зала', 'seminars-hall.jpg', '#1E90FF', '08:00:00', '21:00:00', '09:00:00', '17:30:00'),
+(1, 'Зала за колективна работа', 'collective-work-hall.jpg', '#FF69B4', '08:00:00', '21:00:00', '09:00:00', '17:30:00');
 
 --
 -- Indexes for dumped tables
@@ -138,7 +142,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `events`
 --
 ALTER TABLE `events`
-  MODIFY `event_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `event_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `room`
