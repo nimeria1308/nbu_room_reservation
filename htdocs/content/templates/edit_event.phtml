@@ -50,6 +50,7 @@
     <p>
        <label for="multimedia" class="required">Ще използвам мултимедийна и озвучителна техника:</label>
        <select name="multimedia" class="form-control" required>
+	   	<option value="none" selected disabled hidden><?= $this->event['option']?> </option>
         <option value="yes">Да</option>
         <option value="no">Не</option>
        </select>
@@ -58,23 +59,16 @@
         <span class="required">Декларирам, че при използването на залата се задължавам:</span>
     </p>
     <!-- TODO: The following need to be passed from the backend for each room -->
-    <input type="hidden" name="terms_size" value="4" />
-    <p>
-        <input type="checkbox" name="terms" value="1" required />
-        1. Да уведомя Домакина на НБУ (8110676, в. 2106), за подреждането на залата и броя на необходимите места, един ден предварително.
-    </p>
-    <p>
-        <input type="checkbox" name="terms" value="2" required />
-        2. Да се погрижа участниците да спазват установения от библиотека ред и да опазват библиотечното имущество.
-    </p>
-    <p>
-        <input type="checkbox" name="terms" value="3" required />
-        3. След използване на залата, тя да бъде приведена във вида, в който е заварена.
-    </p>
-    <p>
-        <input type="checkbox" name="terms" value="4" required />
-        4. При повреди нося отговорност за нанесените вреди.
-    </p>
+    <input type="hidden" name="terms_size" value="<?php sizeof($this->terms) ?>" />
+	<?php
+		for($count=0;$count<sizeof($this->terms);++$count){
+			echo '<p>
+				<input type="checkbox" name="terms" value='.($count+1).' required />
+				'.($count+1).'. '.$this->terms[$count][0].'
+			</p>
+			';
+		}
+	?>
     <p>
         <label for="user" class="required">Лице за контакт:</label>
         <input class="form-control" type="text" name="user" value="<?= $this->event['user'] ?>" required />
@@ -89,7 +83,7 @@
     </p>
     <p>
         <label for="other">Допълнителна информация:</label>
-        <textarea class="form-control" name="other" value="<?= $this->event['other'] ?>"></textarea>
+        <textarea class="form-control" name="other"><?= $this->event['other'] ?></textarea>
     </p>
 
     <h4 class="mb-3">
