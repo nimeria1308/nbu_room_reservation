@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.1
+-- version 4.9.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 07, 2020 at 09:04 AM
--- Server version: 10.4.8-MariaDB
--- PHP Version: 7.3.10
+-- Generation Time: Feb 07, 2020 at 12:50 PM
+-- Server version: 10.4.11-MariaDB
+-- PHP Version: 7.4.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -104,6 +104,32 @@ INSERT INTO `room` (`room_id`, `room_name`, `image_path`, `color`, `workday_open
 (0, 'Семинарна зала', 'seminars-hall.jpg', '#1E90FF', '08:00:00', '21:00:00', '09:00:00', '17:30:00'),
 (1, 'Зала за колективна работа', 'collective-work-hall.jpg', '#FF69B4', '08:00:00', '21:00:00', '09:00:00', '17:30:00');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `terms`
+--
+
+CREATE TABLE `terms` (
+  `term_id` int(11) NOT NULL,
+  `term_name` varchar(255) NOT NULL,
+  `room_id_num` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `terms`
+--
+
+INSERT INTO `terms` (`term_id`, `term_name`, `room_id_num`) VALUES
+(1, 'Да уведомя Домакина на НБУ (8110676, в. 2106), за подреждането на залата и броя на необходимите места, един ден предварително.', 1),
+(2, 'Да се погрижа участниците да спазват установения от библиотека ред и да опазват библиотечното имущество.', 1),
+(3, 'След използване на залата, тя да бъде приведена във вида, в който е заварена.', 1),
+(4, 'При повреди нося отговорност за нанесените вреди.', 1),
+(5, ' Да уведомя Домакина на НБУ (8110676, в. 2106), за подреждането на залата и броя на необходимите места, един ден предварително.', 0),
+(6, 'Да се погрижа участниците да спазват установения от библиотека ред и да опазват библиотечното имущество.', 0),
+(7, 'След използване на залата, тя да бъде приведена във вида, в който е заварена.', 0),
+(8, 'При повреди нося отговорност за нанесените вреди.', 0);
+
 --
 -- Indexes for dumped tables
 --
@@ -129,6 +155,13 @@ ALTER TABLE `room`
   ADD PRIMARY KEY (`room_id`);
 
 --
+-- Indexes for table `terms`
+--
+ALTER TABLE `terms`
+  ADD PRIMARY KEY (`term_id`),
+  ADD KEY `room_id_num` (`room_id_num`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -151,6 +184,12 @@ ALTER TABLE `room`
   MODIFY `room_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT for table `terms`
+--
+ALTER TABLE `terms`
+  MODIFY `term_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
 -- Constraints for dumped tables
 --
 
@@ -159,6 +198,12 @@ ALTER TABLE `room`
 --
 ALTER TABLE `events`
   ADD CONSTRAINT `events_ibfk_1` FOREIGN KEY (`room_id_num`) REFERENCES `room` (`room_id`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `terms`
+--
+ALTER TABLE `terms`
+  ADD CONSTRAINT `room_id_num` FOREIGN KEY (`room_id_num`) REFERENCES `room` (`room_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
