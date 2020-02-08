@@ -455,7 +455,8 @@ function search($title){
     require 'database.php';
     $found = array();
     
-    $sql = "SELECT * FROM events WHERE title = ?;";
+    $sql = "SELECT title FROM events WHERE  MATCH(title) 
+    AGAINST($title WITH QUERY EXPANSION);";
     $stmt = mysqli_stmt_init($db);
     if(!mysqli_stmt_prepare($stmt, $sql)){
         //TO DO SOME ERROR

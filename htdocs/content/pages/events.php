@@ -35,9 +35,8 @@ $sortby = array_key_exists('sortby', $_GET) ? trim($_GET['sortby']) : "id";
 $order = array_key_exists('order', $_GET) ? trim($_GET['order']) : "asc";
 
 if ($search) {
-    // if search provided, search in the backend for those events
-    // TODO: pass events from backend
-    $events = [];
+	require_once 'event.php'
+    $events = search($search);
 } else {
     # FIXME: it needs dummy dates to list all events
     $min_date = date('Y', 0);
