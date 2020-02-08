@@ -59,10 +59,3 @@ function open_ajax_popup(url) {
 function close_popup() {
     $.fancybox.getInstance().close();
 }
-
-function open_popup(html) {
-    $.fancybox.open({
-        'src': html,
-        'type': 'html'
-    });
-}
