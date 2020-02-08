@@ -35,7 +35,6 @@ $sortby = array_key_exists('sortby', $_GET) ? trim($_GET['sortby']) : "id";
 $order = array_key_exists('order', $_GET) ? trim($_GET['order']) : "asc";
 
 if ($search) {
-	require_once 'event.php'
     $events = search($search);
 } else {
     # FIXME: it needs dummy dates to list all events

@@ -453,27 +453,45 @@ function load_requests_button($room_id){
 
 function search($title){
     require 'database.php';
-    $found = array();
-    
-    $sql = "SELECT title FROM events WHERE  MATCH(title) 
-    AGAINST($title WITH QUERY EXPANSION);";
-    $stmt = mysqli_stmt_init($db);
-    if(!mysqli_stmt_prepare($stmt, $sql)){
-        //TO DO SOME ERROR
+    $data = array();
+	
+	$find_field=$db->prepare("SELECT * FROM events WHERE  MATCH(title) 
+	AGAINST(?)");
+	$find_field->bind_param('s',$title);
+	$find_field->execute();
+
+	$result=$find_field->get_result();
+    if(mysqli_num_rows($result)==0){
+		//TO DO SOME ERROR
+		error_log(print_r($title, true));	
     }
-    
     else{
-        mysqli_stmt_bind_param($stmt, "s", $title);
-        mysqli_stmt_execute($stmt);
-        $result = mysqli_stmt_get_result($stmt);
-        $count = 0;
         while($row = mysqli_fetch_assoc($result)){
-            $found[] = $row;
-            $count++;
-        }
-    }
-    
-    return $found;
+			$new_start =  new DateTime($row['start_date']);
+            $new_end = new DateTime($row['end_date']);
+            
+			if( $row['multimedia']==1){
+				$multimedia='+техника';
+			}else{
+			$multimedia='без техника';
+			}
+
+            $data[]=[
+				"id" => $row['type_id'],
+				"real_id" => $row['event_id'],
+				"title" => $row['title'],
+                "start" => $new_start,
+                "end" => $new_end,
+                "organizer" => $row['organizer'],
+                "multimedia" => $multimedia,
+                "user" => $row['creator_name'],
+                "phone" => $row['telephone'],
+                "email" => $row['email'],
+				"other" => $row['description'],
+				"creation_time" => $row['creation_time']];
+		}
+	}
+    return $data;
 }
 
 function requests($id,$start,$end){
@@ -481,7 +499,8 @@ function requests($id,$start,$end){
     $sql = "SELECT * FROM events WHERE room_id_num = ?;";
     $stmt = mysqli_stmt_init($db);
     if(!mysqli_stmt_prepare($stmt, $sql)){
-        //TO DO return some error;
+		//TO DO return some error;
+		error_log(print_r($id, true));
     }
     else{
         mysqli_stmt_bind_param($stmt,"i", $id);
@@ -493,15 +512,15 @@ function requests($id,$start,$end){
             $new_start =  new DateTime($row['start_date']);
             $new_end = new DateTime($row['end_date']);
             if($new_start >= $start && $new_end <= $end){
-							if( $row['multimedia']==1){
-								$multimedia='+техника';
-							}else{
-								$multimedia='без техника';
-							}
+				if( $row['multimedia']==1){
+					$multimedia='+техника';
+				}else{
+				$multimedia='без техника';
+				}
 
                 $data[]=[
-										"id" => $row['type_id'],
-										"real_id" => $row['event_id'],
+					"id" => $row['type_id'],
+					"real_id" => $row['event_id'],
                     "title" => $row['title'],
                     "start" => $new_start,
                     "end" => $new_end,
@@ -510,14 +529,14 @@ function requests($id,$start,$end){
                     "user" => $row['creator_name'],
                     "phone" => $row['telephone'],
                     "email" => $row['email'],
-										"other" => $row['description'],
-										"creation_time" => $row['creation_time']];
+					"other" => $row['description'],
+					"creation_time" => $row['creation_time']];
                 $count++;
                 }
             }
         }
         return $data;
-    }
+}
     
 function send_email($address,$event_id){
     //Load required files from PHPMailer library
