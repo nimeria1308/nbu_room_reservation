@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.2
+-- version 4.9.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 07, 2020 at 12:50 PM
--- Server version: 10.4.11-MariaDB
--- PHP Version: 7.4.1
+-- Generation Time: Feb 08, 2020 at 05:48 PM
+-- Server version: 10.4.8-MariaDB
+-- PHP Version: 7.3.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -147,6 +147,7 @@ ALTER TABLE `admin`
 ALTER TABLE `events`
   ADD PRIMARY KEY (`event_id`),
   ADD KEY `room_id_num` (`room_id_num`);
+ALTER TABLE `events` ADD FULLTEXT KEY `title` (`title`);
 
 --
 -- Indexes for table `room`
