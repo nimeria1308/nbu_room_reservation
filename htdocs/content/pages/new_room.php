@@ -1,4 +1,5 @@
 <?php
+require_once('libraries/forceadmin.php');
 require_once('libraries/myview.php');
 
 # New room view
