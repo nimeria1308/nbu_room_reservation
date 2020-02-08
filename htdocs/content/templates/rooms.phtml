@@ -4,7 +4,7 @@
 foreach ($this->rooms as $room_id => $room) {
 ?>
 <div class="grid-element">
-    <a href="<?= ($room_id === 'new' ? 'javascript:open_ajax_popup(\'/rooms/new\');' : "/rooms/$room_id") ?>">
+    <a href="<?= ($room_id === 'new' ? 'javascript:open_ajax_popup(\'/new_room\');' : "/rooms/$room_id") ?>">
         <div class="icon shadowed">
             <img src="/resources/images/<?= $room['img_url'] ?>" class="<?php if (isset($room['img_class'])) { echo $room['img_class']; } ?>"/>
         </div>
