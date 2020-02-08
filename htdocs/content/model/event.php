@@ -65,16 +65,13 @@ function update_existing_event($updated_event,$start,$end){
 		return false;
 	}
 
-	//TODO: adds Missings columns
-	//terms, multimedia, organizer, 
-
 	$update_existing_event="UPDATE events SET title='$updated_event[name]', start_date='$start',end_date= '$end',
 	room_id_num= $updated_event[room_id],creator_name='$updated_event[user]',email='$updated_event[email]',telephone=$updated_event[phone],
 	organizer='$updated_event[organizer]',multimedia=$updated_event[multimedia] ,ip='$ip',creation_time='$time' WHERE event_id=$updated_event[event_id]";
 
 	//If the event is create successfully
 	if($db->query($update_existing_event)===TRUE){
-		//TODO: sent email
+		send_email($updated_event['email'],$updated_event['event_id']);
 		return true;
 	}else{
 		return false;
@@ -152,6 +149,7 @@ function get_event_by_id($id){
 
 			return $data[0];
 	}
+	
 }
 
 function is_room_open($room,$event){
@@ -238,8 +236,6 @@ function create_new_event($event,$start,$end){
 		return false;
 	}
 
-	//TODO: adds Missings columns
-	//terms, multimedia, organizer, 
 	$create_new_event="INSERT INTO events
 	(title, description, start_date, end_date, room_id_num,creator_name, email,telephone,organizer,multimedia,ip, creation_time) VALUES
 	('$event[name]', '$event[other]', '$start', '$end', $event[room_id], '$event[user]', '$event[email]', $event[phone],'$event[organizer]',$event[multimedia] ,'$ip','$time')";
@@ -249,7 +245,7 @@ function create_new_event($event,$start,$end){
 		//Find its id and set value to type_id which is used it case of repeating events
 		$id=find_event_id($start,$end,$event['room_id']);
 		$update_type_id=$db->query("UPDATE events SET type_id = $id WHERE event_id=$id");
-		//TODO: sent email
+		send_email($event['email'],$id);
 		return true;
 	}else{
 		return false;
@@ -268,14 +264,13 @@ function create_new_repeating_event($event,$start,$end){
 		return false;
 	}
 
-	//TODO: adds Missings columns
-	//terms, multimedia, organizer, 
 	$create_new_event="INSERT INTO events
 	(title, description, start_date, end_date, room_id_num,type_id,creator_name, email,telephone,organizer,multimedia,ip, creation_time) VALUES
 	('$event[name]', '$event[other]', '$start', '$end', $event[room_id], $event[id], '$event[user]', '$event[email]', $event[phone],'$event[organizer]',$event[multimedia] ,'$ip','$time')";
 
 	if($db->query($create_new_event)===TRUE){
-		//TODO: Sent email
+		$id=find_event_id($start,$end,$event['room_id']);
+		send_email($event['email'],$id);
 		return true;
 	}else{
 		return false;
