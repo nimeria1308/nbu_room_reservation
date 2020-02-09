@@ -18,6 +18,9 @@ if($event['multimedia']=="+техника"){
 	$event['option']="Не";
 }
 
+$time = strtotime($event['start_date']);
+$event['start_date'] = date('Y-m-d',$time);
+
 # show event view
 $t = new MyView('edit_event.phtml');
 $t->room = $room;
