@@ -36,7 +36,7 @@ $order = array_key_exists('order', $_GET) ? trim($_GET['order']) : "asc";
 
 if ($search) {
     $events = search($search);
-} else {
+}else{
     # FIXME: it needs dummy dates to list all events
     $min_date = date('Y', 0);
     $max_date = new DateTime("01/01/30");
