@@ -16,12 +16,6 @@ if($_POST['multimedia']=='yes'){
 }
 
 $arr=new_event($_POST,$room);
-# TODO: validate data and create new event in backend + send an email from backend
-# input: the data is received in $_POST
-# output: set $status to true if OK
-#         set $status to false if failed, and fill in $error
-
-
 
 $result = ['status' => ($arr['status'] ? 'ok' : 'fail')];
 if (!$arr['status']) {

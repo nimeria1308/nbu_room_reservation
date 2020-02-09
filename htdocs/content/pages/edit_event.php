@@ -10,7 +10,7 @@ $room = get_room($room_id);
 $event_id = $_GET['id'];
 $terms = get_terms($room_id);
 
-// TODO: Get event from backend
+// backend
 $event = get_event_by_id($event_id,$room);
 if($event['multimedia']=="+техника"){
 	$event['option']="Да";
