@@ -36,7 +36,6 @@ $t->render();
 
 # Room view
 $t = new MyView('room.phtml');
-$t->id = $room_id;
 $t->render();
 
 # Footer
