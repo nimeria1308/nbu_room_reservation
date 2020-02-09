@@ -6,8 +6,6 @@ require_once('model/event.php');
 $room_id = $_GET['room_id'];
 $room = get_room($room_id);
 
-echo $room['title'];
-
 $now = new DateTime();
 
 if (isset($_GET['start']) and isset ($_GET['end'])) {
