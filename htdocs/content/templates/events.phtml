@@ -1,6 +1,6 @@
 <form method="get">
     <label for="search">Търсене на събития</label>
-    <input type="text" name="search" size="40" />
+    <input type="text" name="search" size="40" value="<?= $this->search ?>" />
     <input type="submit" value="търси" />
     <?php if ($this->search) {?>
         <input type="button" value="покажи всички" onclick="location.replace('/rooms/<?= $this->room_id ?>/events');" />
@@ -14,7 +14,7 @@
                 <!-- selector -->
             </th>
             <th>
-                <a href="<?= get_sort_link('id') ?>">Номер</a>
+                <a href="<?= get_sort_link('real_id') ?>">Номер</a>
             </th>
             <th>
                 <a href="<?= get_sort_link('created') ?>">Клеймо</a>
