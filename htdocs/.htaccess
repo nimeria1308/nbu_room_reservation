@@ -15,22 +15,6 @@ RewriteRule ^([a-zA-Z0-9_]+)/?$ /content/pages/$1.php
 #   /rooms/0
 RewriteRule ^rooms/(\d+)/?$ /content/pages/room.php?room_id=$1 [QSA]
 
-# Create a new room
-#   /rooms/new
-RewriteRule ^rooms/new/?$ /content/pages/new_room.php
-
-# Edit a room:
-#   /rooms/0/edit
-RewriteRule ^rooms/(\d+)/edit/?$ /content/services/edit_room.php?room_id=$1 [QSA]
-
-# Create a new event
-#   /rooms/0/events/new
-RewriteRule ^rooms/(\d+)/events/new?$ /content/services/new_event.php?room_id=$1 [QSA]
-
-# Edit an event
-#   /rooms/0/events/edit
-RewriteRule ^rooms/(\d+)/events/edit?$ /content/services/edit_event.php?room_id=$1 [QSA]
-
 # Events for a specific room:
 #   /rooms/0/events
 RewriteRule ^rooms/(\d+)/events/?$ /content/pages/events.php?room_id=$1 [QSA]
