@@ -111,6 +111,7 @@ function edit_event($updated_event,$room){
 		return $arr;
 	}
 
+	
 	return repeat_event($updated_event);
 }
 
@@ -378,6 +379,9 @@ function repeat_event($event){
 					}
 				}
 			}
+		}else{
+			$arr=['status'=>true,];
+			return $арр;
 		}
 }
 
@@ -506,7 +510,6 @@ function requests($id,$start,$end){
         mysqli_stmt_bind_param($stmt,"i", $id);
         mysqli_stmt_execute($stmt);
         $data = array();
-        $count = 0;
         $result = mysqli_stmt_get_result($stmt);
         while(($row = mysqli_fetch_assoc($result))){
             $new_start =  new DateTime($row['start_date']);
@@ -531,7 +534,6 @@ function requests($id,$start,$end){
                     "email" => $row['email'],
 					"other" => $row['description'],
 					"creation_time" => $row['creation_time']];
-                $count++;
                 }
             }
         }
