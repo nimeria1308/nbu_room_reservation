@@ -43,7 +43,7 @@ body {
     }
 }
 
-body>div {
+#header {
     padding: 1.3em;
 }
 
@@ -56,7 +56,7 @@ body>div {
     padding-bottom: 0;
 }
 
-#footer>div {
+#footer_bottom {
     border-top: black 1px solid;
     text-align: center;
 }
