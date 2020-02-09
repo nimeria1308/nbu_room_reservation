@@ -32,7 +32,7 @@
                 <a href="<?= get_sort_link('ogranizer') ?>">Организатор</a>
             </th>
             <th>
-                <a href="<?= get_sort_link('name') ?>">Наименование</a>
+                <a href="<?= get_sort_link('title') ?>">Наименование</a>
             </th>
             <th>
                 <a href="<?= get_sort_link('user') ?>">Лице за контакт</a>
@@ -68,10 +68,10 @@
                     <?= $e['start']->format("d/m/Y") ?>
                 </td>
                 <td>
-                    <?= $e['start']->format("H:s") ?>
+                    <?= $e['start']->format("H:i") ?>
                 </td>
                 <td>
-                    <?= $e['end']->format("H:s") ?>
+                    <?= $e['end']->format("H:i") ?>
                 </td>
                 <td>
                     <?= $e['organizer'] ?>
