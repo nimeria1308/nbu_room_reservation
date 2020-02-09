@@ -2,9 +2,11 @@
 require_once('libraries/myview.php');
 require_once('model/room.php');
 require_once('model/event.php');
+require_once('model/term.php');
 
 $room_id = $_GET['room_id'];
 $room = get_room($room_id);
+$terms = get_terms($room_id);
 
 $now = new DateTime();
 
@@ -25,4 +27,5 @@ $t->min_date = $now->format("Y-m-d");
 $t->date = $event_start->format("Y-m-d");
 $t->start_time = $event_start->format("H:i");
 $t->end_time = $event_end->format("H:i");
+$t->terms = $terms;
 $t->render();

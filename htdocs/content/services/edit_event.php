@@ -18,10 +18,6 @@ if(isset($_POST['multimedia'])){
 	}
 }
 
-# TODO: validate data and edit event in backend
-# input: the data is received in $_POST
-# output: set $status to true if OK
-#         set $status to false if failed, and fill in $error
 $arr=edit_event($_POST,$room);
 
 $result = ['status' => ($arr['status'] ? 'ok' : 'fail')];
