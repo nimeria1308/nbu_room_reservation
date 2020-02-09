@@ -614,3 +614,38 @@ function delete_reservation($event_id, $room_id){
         return $data;
     }
 
+function get_events_sorted($field)
+{   //Load database
+    require_once "database.php";
+
+    //SQL querry
+    $search_id_result = $db->query("SELECT * FROM event ORDER BY $field;");
+   
+$stmt = mysqli_stmt_init($db);
+    if(!mysqli_stmt_prepare($stmt, $sql)){
+        //TO DO return some error;
+    }
+
+    else{
+        mysqli_stmt_bind_param($stmt,"i", $id);
+        mysqli_stmt_execute($stmt);
+        $data = array();
+        $count = 0;
+        $result = mysqli_stmt_get_result($stmt);
+        while(($row = mysqli_fetch_assoc($result))){
+            $new_start =  new DateTime($row['start_date']);
+            $new_end = new DateTime($row['end_date']);
+            if($new_start >= $start && $new_end <= $end)
+{
+                $data[]=[   
+                    "id" => $row['type_id'],
+                    "title" => $row['title'],
+                    "start" => $new_start,
+                    "end" => $new_end];
+                $count++;
+                }
+            }
+        }
+        return $data;
+    }
+
