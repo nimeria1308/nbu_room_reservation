@@ -629,7 +629,7 @@ function get_events_sorted($field)
     require_once "database.php";
 
     //SQL querry
-    $search_id_result = $db->query("SELECT * FROM event ORDER BY $field;");
+    $search_id_result = $db->query("SELECT * FROM events ORDER BY $field;");
    
 $stmt = mysqli_stmt_init($db);
     if(!mysqli_stmt_prepare($stmt, $sql)){
