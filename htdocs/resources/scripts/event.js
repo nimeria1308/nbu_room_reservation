@@ -96,8 +96,10 @@ function on_event_submit(editing) {
                 return;
             }
 
-            // update the events
-            global_calendar.refetchEvents();
+            // update the events only in room.php
+            if (window.global_calendar !== undefined) {
+                global_calendar.refetchEvents();
+            }
 
             close_popup();
         })
