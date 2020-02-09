@@ -198,13 +198,13 @@ ALTER TABLE `terms`
 -- Constraints for table `events`
 --
 ALTER TABLE `events`
-  ADD CONSTRAINT `events_ibfk_1` FOREIGN KEY (`room_id_num`) REFERENCES `room` (`room_id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `events_ibfk_1` FOREIGN KEY (`room_id_num`) REFERENCES `room` (`room_id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `terms`
 --
 ALTER TABLE `terms`
-  ADD CONSTRAINT `room_id_num` FOREIGN KEY (`room_id_num`) REFERENCES `room` (`room_id`);
+  ADD CONSTRAINT `room_id_num` FOREIGN KEY (`room_id_num`) REFERENCES `room` (`room_id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
