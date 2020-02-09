@@ -60,14 +60,20 @@ function update_existing_event($updated_event,$start,$end){
 
 	//If the current date is not 2 days before the creation of the event
 	//Then the event will not be created
-	$valid_date= date('Y/m/d',strtotime($time. "+2 days"));
+	$valid_date= date('Y-m-d',strtotime($time. "+2 days"));
 	if($valid_date>$start){
 		return false;
 	}
 
 	$update_existing_event="UPDATE events SET title='$updated_event[name]', start_date='$start',end_date= '$end',
 	room_id_num= $updated_event[room_id],creator_name='$updated_event[user]',email='$updated_event[email]',telephone=$updated_event[phone],
-	organizer='$updated_event[organizer]',multimedia=$updated_event[multimedia] ,ip='$ip',creation_time='$time' WHERE event_id=$updated_event[event_id]";
+	organizer='$updated_event[organizer]',ip='$ip',creation_time='$time'";
+
+	if(isset($updated_event['multimedia'])){
+		$update_existing_event.=",multimedia=$updated_event[multimedia] WHERE event_id=$updated_event[event_id]";
+	}else{
+		$update_existing_event.="WHERE event_id=$updated_event[event_id]";
+	}
 
 	//If the event is create successfully
 	if($db->query($update_existing_event)===TRUE){

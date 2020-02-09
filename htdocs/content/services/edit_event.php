@@ -10,10 +10,12 @@ $_POST['phone']=(int)$_POST['phone'];
 $_POST['weekly_repeat']=(int)$_POST['weekly_repeat'];
 $_POST['repeat_end_count']=(int)$_POST['repeat_end_count'];
 
-if($_POST['multimedia']=='yes'){
-	$_POST['multimedia']=true;
-}else{
-	$_POST['multimedia']=false;
+if(isset($_POST['multimedia'])){
+	if($_POST['multimedia']=='yes'){
+		$_POST['multimedia']=true;
+	}else{
+		$_POST['multimedia']=false;
+	}
 }
 
 # TODO: validate data and edit event in backend
@@ -22,12 +24,9 @@ if($_POST['multimedia']=='yes'){
 #         set $status to false if failed, and fill in $error
 $arr=edit_event($_POST,$room);
 
-$status = true;
-$error = "message explaining error";
-
-$result = ['status' => ($status ? 'ok' : 'fail')];
-if (!$status) {
-    $result['error'] = $error;
+$result = ['status' => ($arr['status'] ? 'ok' : 'fail')];
+if (!$arr['status']) {
+    $result['error'] = $arr['error'];
 }
 
 header("Content-Type: application/json; charset=UTF-8");
