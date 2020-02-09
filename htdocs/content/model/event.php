@@ -113,6 +113,12 @@ function edit_event($updated_event,$room){
 		return $arr;
 	}
 
+	$event=get_event_by_id($updated_event['event_id']);
+	if( $event['multimedia']=='+техника'){
+		$updated_event['multimedia']=1;
+	}else{
+		$updated_event['multimedia']=0;
+	}
 	
 	return repeat_event($updated_event);
 }
@@ -264,7 +270,7 @@ function create_new_repeating_event($event,$start,$end){
 
 	$create_new_event="INSERT INTO events
 	(title, description, start_date, end_date, room_id_num,type_id,creator_name, email,telephone,organizer,multimedia,ip, creation_time) VALUES
-	('$event[name]', '$event[other]', '$start', '$end', $event[room_id], $event[id], '$event[user]', '$event[email]', $event[phone],'$event[organizer]',$event[multimedia] ,'$ip','$time')";
+	('$event[name]', '$event[other]', '$start', '$end', $event[room_id], $event[event_id], '$event[user]', '$event[email]', $event[phone],'$event[organizer]',$event[multimedia] ,'$ip','$time')";
 
 	if($db->query($create_new_event)===TRUE){
 		$id=find_event_id($start,$end,$event['room_id']);
